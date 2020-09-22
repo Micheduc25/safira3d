@@ -1,0 +1,16 @@
+@font-face {
+  font-family: 'crystal_cathedral';
+  src: url('/fonts/crystal_cathedral/crystal_cathedral-webfont.eot');
+  src: url('/fonts/crystal_cathedral/crystal_cathedral-webfont.eot?#iefix')
+      format('embedded-opentype'),
+    url('/fonts/crystal_cathedral/crystal_cathedral-webfont.woff2')
+      format('woff2'),
+    url('/fonts/crystal_cathedral/crystal_cathedral-webfont.woff')
+      format('woff'),
+    url('/fonts/crystal_cathedral/crystal_cathedral-webfont.ttf')
+      format('truetype'),
+    url('/fonts/crystal_cathedral/crystal_cathedral-webfont.svg#crystal_cathedralregular')
+      format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
