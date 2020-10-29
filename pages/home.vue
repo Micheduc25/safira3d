@@ -8,25 +8,25 @@
         <div class="login w-full flex justify-around mb-6">
           <input
             id="email"
+            v-model="email"
             style="text-align-last: center"
             class="border border-main py-1 px-3 w-5/12"
             type="email"
             name="email"
-            v-model="email"
             placeholder="Votre Email"
           />
 
           <input
             id="password"
+            v-model="password"
             style="text-align-last: center"
             class="border border-main py-1 px-3 w-5/12"
             type="password"
             name="password"
-            v-model="password"
             placeholder="Votre Mot de Passe"
           />
 
-          <button @click="login('local')" class="bg-main text-white py-2 px-6">
+          <button class="bg-main text-white py-2 px-6" @click="login('local')">
             OK
           </button>
         </div>
