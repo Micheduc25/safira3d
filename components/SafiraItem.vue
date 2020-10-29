@@ -2,16 +2,12 @@
   <div
     :style="{
       'border-color': secondaryColor,
-      'background-image': `url(/images/safira/${imageBack})`,
+      'background-image': `url(${imageBack})`,
     }"
     class="item-main text-white"
   >
     <div class="item-info flex">
-      <img
-        class="item-image"
-        :src="`/images/safira/${imageMain}`"
-        alt="image"
-      />
+      <img class="item-image" :src="imageMain" alt="image" />
       <div
         :style="{ 'background-color': `${mainColor}77` }"
         class="description-main"
@@ -92,9 +88,14 @@ export default {
     @media (max-width: 950px) {
       flex-direction: column;
       align-items: center;
+      img.item-image {
+        height: auto;
+        width: 500px;
+      }
     }
 
     .description-main {
+      width: 100%;
       padding: 15px;
 
       .desc-title {

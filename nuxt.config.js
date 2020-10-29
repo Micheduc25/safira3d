@@ -51,10 +51,46 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/auth',
   ],
 
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/api/auth/login',
+            method: 'post',
+            propertyName: 'token',
+          },
+          logout: { url: '/api/auth/logout', method: 'post' },
+          user: { url: '/api/auth/me', method: 'get', propertyName: 'user' },
+        },
+        tokenName: 'x-auth-token',
+        // tokenRequired: true,
+        // tokenType: 'bearer',
+        // globalToken: true,
+        // autoFetchUser: true
+      },
+    },
+  },
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  axios: {},
+  axios: {
+    baseURL: 'http://localhost:5000', // Used as fallback if no runtime config is provided
+    retry: { retries: 3 },
+  },
+
+  publicRuntimeConfig: {
+    axios: {
+      browserBaseURL: process.env.BROWSER_BASE_URL,
+    },
+  },
+
+  privateRuntimeConfig: {
+    axios: {
+      baseURL: process.env.BASE_URL,
+    },
+  },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},
