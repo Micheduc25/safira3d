@@ -21,7 +21,7 @@ export default {
   ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: ['@/plugins/vuesax'],
+  plugins: ['@/plugins/vuesax', '@/plugins/vue-agile'],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
@@ -37,8 +37,8 @@ export default {
         component: 'fa',
         suffix: true,
         icons: {
-          solid: ['faHome', 'faSearch'],
-          regular: [],
+          solid: ['faHome', 'faSearch', 'faEye'],
+          regular: ['faEye', 'faHeart'],
           light: [],
           duotone: [],
           brands: [],
@@ -72,6 +72,12 @@ export default {
         // globalToken: true,
         // autoFetchUser: true
       },
+
+      google: {
+        client_id:
+          '234103787265-402t42klm5612vk6kinnqdprgno94tbr.apps.googleusercontent.com',
+        redirect_uri: 'http://localhost:3000',
+      },
     },
   },
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
@@ -93,5 +99,7 @@ export default {
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {},
+  build: {
+    // transpile: ['vue-agile'],
+  },
 };

@@ -80,9 +80,9 @@
       <div class="filter-section flex items-center mx-auto">
         <div class="mr-2">Classer les Safiras :</div>
         <div class="filter-select text-black">
-          <select v-model="filterBy" class="p-2 w-full">
-            <option value="recent_first">Plus recents en premier</option>
-            <option value="oldest_first">Plus recents en dernier</option>
+          <select v-model="sortBy" class="p-2 w-full">
+            <option value="most_recent">Plus recents en premier</option>
+            <option value="least_recent">Plus recents en dernier</option>
           </select>
         </div>
       </div>
@@ -96,7 +96,7 @@ export default {
   data() {
     return {
       searchKey: '',
-      filterBy: 'recent_first',
+      sortBy: 'most_recent',
       showMenu: false,
       showFilter: false,
       showSearchBar: false,
@@ -106,6 +106,10 @@ export default {
   watch: {
     searchKey(newVal) {
       this.$store.dispatch('modules/searchModule', newVal);
+    },
+
+    sortBy(newVal) {
+      this.$store.dispatch('modules/sortModules', newVal);
     },
   },
 };

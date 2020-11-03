@@ -59,6 +59,7 @@
         <div class="connection-methods flex flex-col items-stretch">
           <button
             class="shadow-lg px-6 py-1 flex items-center bg-main text-white mb-4"
+            @click="altLogin('google')"
           >
             <img
               class="w-16 h-16 mr-4"
@@ -69,6 +70,7 @@
           </button>
           <button
             class="shadow-lg px-6 py-1 flex items-center bg-main text-white mb-4"
+            @click="altLogin('facebook')"
           >
             <img
               class="w-16 h-16 mr-4"
@@ -77,7 +79,8 @@
             />
             <span class="text-4xl">Je me connecte avec Facebook </span>
           </button>
-          <button
+          <!-- <button
+         
             class="shadow-lg px-6 py-1 flex items-center bg-main text-white"
           >
             <img
@@ -86,7 +89,7 @@
               alt="email signup"
             />
             <span class="text-4xl">Je me connecte avec mon Email </span>
-          </button>
+          </button> -->
         </div>
       </div>
     </div>
@@ -95,6 +98,8 @@
 
 <script>
 export default {
+  name: 'Login',
+  // middleware: 'auth',
   data() {
     return {
       email: '',
@@ -117,6 +122,11 @@ export default {
         }
         loading.close();
       }
+    },
+
+    async altLogin(strategy) {
+      const res = await this.$auth.loginWith(strategy);
+      console.log('after login google ====>', res);
     },
   },
 };

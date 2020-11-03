@@ -6,12 +6,14 @@
     }"
     class="item-main text-white"
   >
-    <div class="item-info flex">
+    <div
+      class="item-info flex items-center"
+      :style="{
+        'background-color': `${mainColor}77`,
+      }"
+    >
       <img class="item-image" :src="imageMain" alt="image" />
-      <div
-        :style="{ 'background-color': `${mainColor}77` }"
-        class="description-main"
-      >
+      <div class="description-main">
         <h1 class="desc-title font-bold">
           {{ title }}
         </h1>
@@ -26,10 +28,34 @@
           {{ categories }}
         </div>
 
+        <client-only>
+          <star-rating
+            :show-rating="false"
+            :star-size="30"
+            :read-only="true"
+            :rating="rating"
+            @rating-selected="ratingSelected"
+          />
+
+          <template #placeholder><div>ratings</div></template>
+        </client-only>
+
+        <div class="stats mt-4">
+          <span class="mr-4 cursor-pointer" @click="likeModule">
+            <fa-icon :icon="hasUserLikedModule ? fullHeart : emptyHeart" />
+            {{ likes }}</span
+          >
+          <span
+            ><fa-icon :icon="hasUserViewedModule ? faEyeFull : faEye" />
+            {{ views }}</span
+          >
+        </div>
+
         <div class="action-buttons">
-          <button class="explorer">
+          <button class="explorer" @click="$router.push('/modules/' + _id)">
             Explorer! <img src="/images/icons/stickman.png" class="person" />
           </button>
+
           <button class="download">
             Télécharger
             <img src="/images/icons/download.png" class="download" />
@@ -41,9 +67,22 @@
 </template>
 
 <script>
+import * as RegularIcons from '@fortawesome/free-regular-svg-icons';
+import * as SolidIcons from '@fortawesome/free-solid-svg-icons';
+
+const rating = process.client ? require('vue-star-rating/src') : {};
+
 export default {
   name: 'SafiraItem',
+
+  components: {
+    StarRating: rating.default,
+  },
   props: {
+    _id: {
+      required: true,
+      type: String,
+    },
     imageMain: {
       required: true,
       type: String,
@@ -57,11 +96,77 @@ export default {
     categories: String,
     mainColor: String,
     secondaryColor: String,
+    likes: {
+      type: Number,
+      default: 0,
+    },
+    likers: Array[String],
+    views: {
+      type: Number,
+      default: 0,
+    },
+    viewers: Array[String],
+    rating: {
+      type: Number,
+      default: 0,
+    },
   },
   data() {
     return {
-      item: '',
+      showRating: false,
+      hasUserLikedModule: false,
+      hasUserViewedModule: false,
     };
+  },
+
+  computed: {
+    emptyHeart() {
+      return RegularIcons.faHeart;
+    },
+
+    fullHeart() {
+      return SolidIcons.faHeart;
+    },
+
+    faEye() {
+      return RegularIcons.faEye;
+    },
+    faEyeFull() {
+      return SolidIcons.faEye;
+    },
+  },
+  created() {
+    if (this.$auth.loggedIn) {
+      this.hasUserLikedModule = this.likers.includes(this.$auth.user._id);
+      this.hasUserViewedModule = this.viewers.includes(this.$auth.user._id);
+    }
+  },
+
+  methods: {
+    ratingSelected(val) {
+      this.$store.dispatch('modules/rateModule', {
+        moduleId: this._id,
+        value: val,
+      });
+    },
+
+    async likeModule() {
+      if (!this.hasUserLikedModule) {
+        try {
+          await this.$store.dispatch('modules/likeModule', this._id);
+          this.hasUserLikedModule = true;
+        } catch (err) {
+          console.log('an error occured', err);
+        }
+      } else {
+        try {
+          await this.$store.dispatch('modules/unlikeModule', this._id);
+          this.hasUserLikedModule = false;
+        } catch (err) {
+          console.log('an error occured', err);
+        }
+      }
+    },
   },
 };
 </script>

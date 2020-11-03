@@ -60,7 +60,7 @@ export default {
 
   props: {
     // eslint-disable-next-line vue/require-prop-type-constructor
-    initialValue: String | Number,
+    initialValue: String | Array,
     name: String,
     disabled: {
       default: false,
@@ -88,10 +88,11 @@ export default {
 
   watch: {
     initialValue(newVal) {
-      if (newVal) this.selectValue = newVal;
+      if (newVal && !this.multiple) this.selectValue = newVal;
+      if (this.multiple) this.multiSelectValues = newVal;
     },
     options(newVal) {
-      this.selectValue = this.getOptionLabel(newVal[0]);
+      if (!this.multiple) this.selectValue = this.getOptionLabel(newVal[0]);
       // console.log("option changed to ", newVal[0])
     },
 
@@ -105,24 +106,27 @@ export default {
     },
   },
 
-  mounted() {
+  created() {
     //  we set the value of the field to the initial value if there is one.
     //  it is to be noted that initial value is a string
     //  so we need a the getOptionFromLabel method to get the corresponding object
     if (this.initialValue) {
-      this.selectValue = this.initialValue;
-      if (this.multiple) {
-        // const item = this.getOptionFromLabel(this.initialValue);
-        // if (item) this.multiSelectValues.push(item);
+      if (!this.multiple) this.selectValue = this.initialValue;
+      if (this.multiple && Array.isArray(this.initialValue)) {
+        console.log('we are here!', this.initialValue);
+        this.initialValue.forEach((val) => {
+          console.log('initValue', val);
+          this.multiSelectValues.push(val);
+        });
       }
     } else {
       // this.selectValue = this.getOptionLabel(this.options[0]);
       // this.multiSelectValues.push(this.options[0]);
     }
-    this.$parent.$on('cancelEdit', () => {
-      this.selectValue = '';
-    });
   },
+  // mounted() {
+
+  // },
 
   methods: {
     optionSelected(event) {

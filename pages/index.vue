@@ -17,8 +17,12 @@
         </div>
       </div>
       <safira-item
-        v-for="module in filtered_modules"
+        v-for="module in currentPageItems"
         :key="module._id"
+        :_id="module._id"
+        :views="module.views"
+        :rating="module.rating"
+        :likes="module.likes"
         :image-main="module.foreground_image"
         :image-back="module.background_image"
         :title="module.title"
@@ -26,6 +30,8 @@
         :categories="module.categories.join('-')"
         :main-color="module.main_color"
         :secondary-color="module.secondary_color"
+        :likers="module.likers"
+        :viewers="module.viewers"
       >
         <template #description>
           {{ module.description }}
@@ -84,12 +90,13 @@
           magnifiques à explorer
         </p>
 
-        <div class="pagination flex justify-center mt-8 w-4/12 mx-auto">
-          <span
-            v-for="num in 3"
-            :key="num"
-            class="h-8 w-8 rounded-full bg-main mr-2 cursor-pointer"
-          ></span>
+        <div class="mt-6 text-4xl center con-pagination">
+          <vs-pagination
+            v-model="page"
+            color="#203864"
+            circle
+            :length="totalPages"
+          />
         </div>
       </div>
 
@@ -127,10 +134,22 @@ export default {
   data() {
     return {
       showLoader: true,
+      page: 1,
+      step: 1,
     };
   },
   computed: {
     ...mapGetters('modules', ['modules', 'filtered_modules']),
+    currentPageItems() {
+      return this.filtered_modules.slice(
+        (this.page - 1) * this.step,
+        this.page * this.step + this.step - 1
+      );
+    },
+
+    totalPages() {
+      return Math.ceil(this.filtered_modules.length / this.step);
+    },
   },
 
   async created() {
@@ -144,6 +163,12 @@ export default {
       this.showLoader = false;
     });
   },
+
+  // watch:{
+  //   page(newVal){
+
+  //   }
+  // }
 };
 </script>
 

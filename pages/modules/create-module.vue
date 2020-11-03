@@ -2,10 +2,11 @@
   <div class="module-form">
     <div class="form-wrapper w-7/12 mx-auto text-4xl">
       <div class="title font-bold mb-8 mt-4 text-5xl text-center">
-        Créer un Module Safira
+        {{ !isEditMode ? 'Créer un Module Safira' : 'Modifier Module' }}
       </div>
       <form-input
         v-model="formData.title"
+        :initial-value="formData.title"
         label="Titre"
         name="title"
         type="text"
@@ -17,18 +18,21 @@
       />
       <form-input
         v-model="formData.location"
+        :initial-value="formData.location"
         label="Location"
         name="location"
         type="text"
       />
       <form-input
         v-model="formData.main_color"
+        :initial-value="formData.main_color"
         label="Couleur Princiale"
         name="main_color"
         type="color"
       />
       <form-input
         v-model="formData.secondary_color"
+        :initial-value="formData.secondary_color"
         label="Couleur de Fond"
         name="secondary_color"
         type="color"
@@ -38,30 +42,31 @@
         name="category"
         :options="['ecole', 'business', 'monument', 'ville']"
         label="Catégories"
+        :initial-value="formData.categories"
         @valueSelected="categoriesSelected"
       />
       <form-upload-button
-        v-model="formData.title"
         file-mimes="images/*"
         text="Choisir"
         label="Image Primaire"
         @fileSelected="foreImageSelected"
       />
+      <img id="fgimg" class="mb-10" :src="formData.foreground_image" alt="" />
       <form-upload-button
-        v-model="formData.title"
         file-mimes="images/*"
         text="Choisir"
         label="Image de Fond"
         @fileSelected="backImageSelected"
       />
+      <img id="bgimg" class="" :src="formData.background_image" alt="" />
 
       <div class="flex justify-center items-end">
         <button
           :disabled="isCreating"
           class="py-4 px-8 my-8 bg-blue-600 text-white text-4xl rounded"
-          @click="createModule"
+          @click="() => (isEditMode ? updateModule() : createModule())"
         >
-          Créer
+          {{ isEditMode ? 'Modifier' : 'Créer' }}
         </button>
       </div>
     </div>
@@ -69,6 +74,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 import formInput from '~/components/formInput';
 import formSelectInput from '~/components/formSelectInput';
 import formTextArea from '~/components/formTextArea';
@@ -93,8 +100,46 @@ export default {
         background_image: null,
       },
 
+      isEditMode: false,
+      editModule: null,
+
       isCreating: false,
     };
+  },
+
+  computed: {
+    ...mapGetters('modules', ['selected_module']),
+  },
+
+  async created() {
+    //  we check if we are in edit mode
+    this.isEditMode = this.$route.query.editmode === 'true';
+    if (this.isEditMode) {
+      try {
+        await this.$store.dispatch(
+          'modules/fetchModule',
+          this.$route.query.moduleId
+        );
+        if (
+          this.selected_module.creator._id !== this.$auth.user._id &&
+          this.$auth.user.role !== 'admin'
+        ) {
+          this.$router.replace('/');
+        } else {
+          this.formData.title = this.selected_module.title;
+          this.formData.description = this.selected_module.description;
+          this.formData.location = this.selected_module.location;
+          this.formData.main_color = this.selected_module.main_color;
+          this.formData.secondary_color = this.selected_module.secondary_color;
+          this.formData.categories = this.selected_module.categories;
+          this.formData.foreground_image = this.selected_module.foreground_image;
+          this.formData.background_image = this.selected_module.background_image;
+        }
+      } catch (err) {
+        console.log('an error occured====>', err);
+        this.$router.replace('/');
+      }
+    }
   },
 
   methods: {
@@ -103,9 +148,11 @@ export default {
     },
     foreImageSelected(val) {
       this.formData.foreground_image = val;
+      this.readImage(val, 'fgimg');
     },
     backImageSelected(val) {
       this.formData.background_image = val;
+      this.readImage(val, 'bgimg');
     },
 
     async createModule() {
@@ -118,6 +165,43 @@ export default {
       }
       loading.close();
       this.isCreating = false;
+    },
+
+    async updateModule() {
+      console.log('going to update');
+      this.isCreating = true;
+      const loading = this.$vs.loading();
+
+      try {
+        await this.$store.dispatch('modules/editModule', {
+          moduleId: this.$route.query.moduleId,
+          data: this.formData,
+        });
+        this.$vs.notification({
+          text: 'Module modifié avec succès',
+          color: 'success',
+          duration: 3000,
+        });
+        this.$router.back();
+      } catch (err) {
+        this.$vs.notification({
+          text: 'Une erreur est survenu lors de la modification du module',
+          color: 'danger',
+          duration: 3000,
+        });
+      }
+      loading.close();
+      this.isCreating = false;
+    },
+
+    readImage(file, elId = 'fgimg') {
+      const reader = new FileReader();
+      const imageEl = document.getElementById(elId);
+      reader.onload = (e) => {
+        imageEl.src = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
     },
   },
 };
