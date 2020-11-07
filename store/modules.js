@@ -89,6 +89,13 @@ export const mutations = {
         });
         break;
 
+      case 'most_popular':
+        state.modules = state.modules.sort((prev, next) => {
+          return next.rating - prev.rating;
+        });
+
+        break;
+
       default:
         break;
     }

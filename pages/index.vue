@@ -135,7 +135,7 @@ export default {
     return {
       showLoader: true,
       page: 1,
-      step: 1,
+      step: 5,
     };
   },
   computed: {
@@ -154,8 +154,14 @@ export default {
 
   async created() {
     console.log('going to fetch modules');
+    const firstRun = this.$auth.$storage.getLocalStorage('isFirstRun');
 
-    await this.$store.dispatch('modules/fetchAllModules');
+    if (!firstRun) {
+      this.$auth.$storage.setLocalStorage('isFirstRun', 'true');
+      this.$router.replace('/auth/login');
+    } else {
+      await this.$store.dispatch('modules/fetchAllModules');
+    }
   },
 
   mounted() {
@@ -192,6 +198,8 @@ export default {
       align-items: center;
       justify-content: flex-start;
       color: #203864;
+      padding: 5px;
+      background: rgba(255, 255, 255, 0.2);
       @media (max-width: 1050px) {
         width: 45%;
       }

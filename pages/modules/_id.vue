@@ -26,8 +26,9 @@
       >
         <div
           v-if="
-            $auth.user.role === 'admin' ||
-            $auth.user._id === selected_module.creator._id
+            $auth.loggedIn &&
+            ($auth.user.role === 'admin' ||
+              $auth.user._id === selected_module.creator._id)
           "
           class="module-actions"
         >
@@ -83,6 +84,12 @@
         <img :src="selected_module.foreground_image" alt="module image" />
       </div>
 
+      <div class="visit-but flex justify-center items-center">
+        <button class="action-but px-6 py-4 text-white mt-8">
+          Aller a la visite
+        </button>
+      </div>
+
       <div class="px-6 module_creator">
         <span>Ajouté par: </span
         ><span class="font-bold text-4xl">{{
@@ -102,6 +109,7 @@ export default {
   components: {
     StarRating: rating.default,
   },
+  middleware: 'auth',
   data() {
     return {
       rating: 0,
@@ -121,7 +129,7 @@ export default {
     },
   },
   async created() {
-    const loading = this.$vs.loading();
+    // const loading = this.$vs.loading();
     try {
       //  we fetc the selected module
 
@@ -129,7 +137,10 @@ export default {
       this.rating = this.selected_module.rating;
 
       //  if the user has not yet viewed the module we make him view!
-      if (!this.selected_module.viewers.includes(this.$auth.user._id)) {
+      if (
+        this.$auth.loggedIn &&
+        !this.selected_module.viewers.includes(this.$auth.user._id)
+      ) {
         await this.$store.dispatch(
           'modules/viewModule',
           this.selected_module._id
@@ -138,7 +149,7 @@ export default {
     } catch (err) {
       console.log(err);
     }
-    loading.close();
+    // loading.close();
   },
 
   methods: {

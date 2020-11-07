@@ -1,6 +1,6 @@
 <template>
   <header
-    class="app-header bg-main flex text-white items-center justify-between"
+    class="app-header bg-main flex text-white items-center justify-between pb-1"
   >
     <div
       class="header-left relative md:static w-full md:w-auto pr-3 md:pr-0 flex justify-between md:justify-start items-center"
@@ -26,6 +26,7 @@
             <label for="search" class="">
               <input
                 v-model="searchKey"
+                type="search"
                 :class="{ 'w-102': showSearchBar }"
                 class="text-black xs:px-2 py-1 border border-black w-0 transition-all duration-300 xs:w-102"
                 placeholder="un lieu, un pays, une ville, un quartier ou une catégorie de sites
@@ -61,8 +62,15 @@
             class="filter-menu rounded-sm shadow-md absolute bg-white text-black p-2"
           >
             <div class="font-bold mb-2">Classer Safira par:</div>
-            <div class="">Plus recents en premier</div>
-            <div class="">Plus recents en dernier</div>
+            <div @click="sortBy = 'most_recent'" class="">
+              Plus recents en premier
+            </div>
+            <div @click="sortBy = 'least_recent'" class="">
+              Plus recents en dernier
+            </div>
+            <div @click="sortBy = 'most_popular'" class="">
+              Plus populaires en premier
+            </div>
           </div>
         </transition>
 
@@ -83,6 +91,7 @@
           <select v-model="sortBy" class="p-2 w-full">
             <option value="most_recent">Plus recents en premier</option>
             <option value="least_recent">Plus recents en dernier</option>
+            <option value="most_popular">Plus populaires en premier</option>
           </select>
         </div>
       </div>

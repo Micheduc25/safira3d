@@ -21,7 +21,7 @@ export default {
   ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: ['@/plugins/vuesax', '@/plugins/vue-agile'],
+  plugins: ['@/plugins/vuesax', '@/plugins/vue-agile', '@/plugins/joi'],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
@@ -79,6 +79,7 @@ export default {
         redirect_uri: 'http://localhost:3000',
       },
     },
+    redirect: false,
   },
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {

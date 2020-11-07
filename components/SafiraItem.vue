@@ -24,9 +24,7 @@
         <div class="desc">
           <slot name="description"></slot>
         </div>
-        <div class="categories font-bold">
-          {{ categories }}
-        </div>
+        <div class="categories font-bold">Categories: {{ categories }};</div>
 
         <client-only>
           <star-rating

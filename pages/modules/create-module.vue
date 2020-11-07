@@ -24,6 +24,14 @@
         type="text"
       />
       <form-input
+        v-model="formData.visit_url"
+        :initial-value="formData.visit_url"
+        label="Url du Module"
+        name="visiturl"
+        type="url"
+      />
+
+      <form-input
         v-model="formData.main_color"
         :initial-value="formData.main_color"
         label="Couleur Princiale"
@@ -40,7 +48,12 @@
       <form-select-input
         :multiple="true"
         name="category"
-        :options="['ecole', 'business', 'monument', 'ville']"
+        :options="[
+          'Monument',
+          'Site Historique',
+          'Site Touristique',
+          'Site Culturel',
+        ]"
         label="Catégories"
         :initial-value="formData.categories"
         @valueSelected="categoriesSelected"
@@ -98,6 +111,7 @@ export default {
         categories: [],
         foreground_image: null,
         background_image: null,
+        visit_url: '',
       },
 
       isEditMode: false,
@@ -126,8 +140,9 @@ export default {
         ) {
           this.$router.replace('/');
         } else {
-          this.formData.title = this.selected_module.title;
           this.formData.description = this.selected_module.description;
+          this.formData.title = this.selected_module.title;
+          this.formData.visit_url = this.selected_module.visit_url;
           this.formData.location = this.selected_module.location;
           this.formData.main_color = this.selected_module.main_color;
           this.formData.secondary_color = this.selected_module.secondary_color;
@@ -160,8 +175,16 @@ export default {
       const loading = this.$vs.loading();
       try {
         await this.$store.dispatch('modules/createModule', this.formData);
+        this.$vs.notification({
+          color: 'success',
+          text: 'Module Créé avec succès',
+        });
       } catch (err) {
-        console.error(err);
+        this.$vs.notification({
+          color: 'danger',
+          text: 'Un erreur est survenu lors de la création du module',
+        });
+        // console.error(err);
       }
       loading.close();
       this.isCreating = false;

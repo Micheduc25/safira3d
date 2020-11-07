@@ -1,5 +1,14 @@
 <template>
-  <section class="home-page flex justify-end pb-10">
+  <section class="home-page flex justify-end pb-10 relative">
+    <div class="home-link absolute">
+      <nuxt-link to="/">
+        <img
+          class="hidden xs:block w-40 md:w-48"
+          src="/images/logos/nashma_logo.png"
+          alt="nashma-logo"
+        />
+      </nuxt-link>
+    </div>
     <div class="home-content flex flex-col items-end">
       <div class="content-upper w-full flex md:flex-col flex-col-reverse">
         <div class="text-main text-3xl w-full mb-2 mt-4 text-center font-bold">
@@ -80,6 +89,7 @@
             <span class="text-4xl">Se connecter avec Google </span>
           </button>
           <button
+            @click="altLogin('facebook')"
             class="shadow-lg px-6 py-1 flex items-center bg-main text-white mb-4"
           >
             <img
@@ -107,6 +117,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   name: 'Login',
   // middleware: 'auth',
@@ -117,12 +128,16 @@ export default {
     };
   },
 
+  computed: {
+    ...mapGetters('users', ['new_register_data']),
+  },
   created() {
-    const registerData = this.$store.getters.new_register_data;
-
-    if (registerData.email.length > 0 && registerData.password.length > 0) {
-      this.email = registerData.email;
-      this.password = registerData.password;
+    if (
+      this.new_register_data.email.length > 0 &&
+      this.new_register_data.password.length > 0
+    ) {
+      this.email = this.new_register_data.email;
+      this.password = this.new_register_data.password;
     }
   },
   methods: {
@@ -138,8 +153,8 @@ export default {
           });
 
           if (
-            this.$store.getters.new_register_data.email.length > 0 &&
-            this.$store.getters.new_register_data.password.length > 0
+            this.new_register_data.email.length > 0 &&
+            this.new_register_data.password.length > 0
           ) {
             this.$store.dispatch('users/setRegisterData', {
               email: '',
@@ -185,6 +200,13 @@ export default {
 
   .home-content {
     flex-basis: 600px;
+  }
+
+  .home-link {
+    top: 20px;
+    left: 30px;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 7px;
   }
 }
 </style>
