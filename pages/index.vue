@@ -32,6 +32,7 @@
         :secondary-color="module.secondary_color"
         :likers="module.likers"
         :viewers="module.viewers"
+        :visit_url="module.visit_url"
       >
         <template #description>
           {{ module.description }}

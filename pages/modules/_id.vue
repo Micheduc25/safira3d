@@ -85,9 +85,12 @@
       </div>
 
       <div class="visit-but flex justify-center items-center">
-        <button class="action-but px-6 py-4 text-white mt-8">
+        <a
+          :href="selected_module.visit_url"
+          class="action-but px-6 py-4 text-white mt-8 inline-block"
+        >
           Aller a la visite
-        </button>
+        </a>
       </div>
 
       <div class="px-6 module_creator">

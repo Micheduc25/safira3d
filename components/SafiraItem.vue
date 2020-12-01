@@ -49,7 +49,7 @@
           >
         </div>
 
-        <div v-if="module.visit_url" class="action-buttons">
+        <div v-if="visit_url" class="action-buttons">
           <button class="explorer" @click="$router.push('/modules/' + _id)">
             Explorer! <img src="/images/icons/stickman.png" class="person" />
           </button>
@@ -97,6 +97,7 @@ export default {
     categories: String,
     mainColor: String,
     secondaryColor: String,
+    visit_url: String,
     likes: {
       type: Number,
       default: 0,
