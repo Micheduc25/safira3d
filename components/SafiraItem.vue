@@ -49,7 +49,7 @@
           >
         </div>
 
-        <div class="action-buttons">
+        <div v-if="module.visit_url" class="action-buttons">
           <button class="explorer" @click="$router.push('/modules/' + _id)">
             Explorer! <img src="/images/icons/stickman.png" class="person" />
           </button>
@@ -58,6 +58,9 @@
             Télécharger
             <img src="/images/icons/download.png" class="download" />
           </button>
+        </div>
+        <div v-else class="italics text-xl">
+          En cours de réalisation et prochainement disponible sur Safira3D.com !
         </div>
       </div>
     </div>
