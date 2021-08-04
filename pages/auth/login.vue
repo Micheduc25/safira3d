@@ -49,12 +49,9 @@
             >
           </div>
           <div class="my-4">---------- ou ------------</div>
-          <button
-            class="bg-main text-white py-2 px-2"
-            @click="$router.push('/auth/register')"
-          >
+          <nuxt-link to="/auth/register" class="bg-main text-white py-2 px-2">
             Créer un compte
-          </button>
+          </nuxt-link>
         </div>
 
         <div
@@ -89,8 +86,8 @@
             <span class="text-4xl">Se connecter avec Google </span>
           </button>
           <button
-            @click="altLogin('facebook')"
             class="shadow-lg px-6 py-1 flex items-center bg-main text-white mb-4"
+            @click="altLogin('facebook')"
           >
             <img
               class="w-16 h-16 mr-4"
@@ -190,7 +187,7 @@ export default {
       rgba(255, 255, 255, 0.3),
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.7),
-      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 0.9),
       rgba(255, 255, 255, 1),
       rgba(255, 255, 255, 1)
     ),

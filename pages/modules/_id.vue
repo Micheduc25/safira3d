@@ -24,6 +24,9 @@
         :style="{ backgroundImage: `url(${selected_module.background_image})` }"
         class="top-band relative"
       >
+        <nuxt-link class="absolute top-0 left-0 ml-4 mt-4" to="/"
+          ><fa-icon :icon="faBack" :style="{ width: '50px', color: 'white' }"
+        /></nuxt-link>
         <div
           v-if="
             $auth.loggedIn &&
@@ -96,7 +99,7 @@
       <div class="px-6 module_creator">
         <span>Ajouté par: </span
         ><span class="font-bold text-4xl">{{
-          selected_module.creator.name
+          selected_module.creator ? selected_module.creator.name : 'Admin'
         }}</span>
       </div>
     </section>
@@ -112,7 +115,7 @@ export default {
   components: {
     StarRating: rating.default,
   },
-  middleware: 'auth',
+  middleware: ['auth'],
   data() {
     return {
       rating: 0,
@@ -130,11 +133,14 @@ export default {
     faDelete() {
       return SolidIcons.faTrash;
     },
+    faBack() {
+      return SolidIcons.faChevronCircleLeft;
+    },
   },
   async created() {
-    // const loading = this.$vs.loading();
+    const loading = this.$vs.loading();
     try {
-      //  we fetc the selected module
+      //  we fetch the selected module
 
       await this.$store.dispatch('modules/fetchModule', this.$route.params.id);
       this.rating = this.selected_module.rating;
@@ -152,7 +158,7 @@ export default {
     } catch (err) {
       console.log(err);
     }
-    // loading.close();
+    loading.close();
   },
 
   methods: {

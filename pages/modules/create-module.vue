@@ -2,7 +2,7 @@
   <div class="module-form">
     <div class="form-wrapper w-7/12 mx-auto text-4xl">
       <div class="title font-bold mb-8 mt-4 text-5xl text-center">
-        {{ !isEditMode ? 'Créer un Module Safira' : 'Modifier Module' }}
+        {{ !isEditMode ? 'Ajouter un Module Safira' : 'Modifier Module' }}
       </div>
       <form-input
         v-model="formData.title"
@@ -29,6 +29,20 @@
         label="Url du Module"
         name="visiturl"
         type="url"
+      />
+      <form-input
+        v-model="formData.apk_url"
+        :initial-value="formData.apk_url"
+        label="Url de l'APK"
+        name="apkurl"
+        type="url"
+      />
+      <form-input
+        v-model="formData.app_id"
+        :initial-value="formData.app_id"
+        label="Identifiant Apk"
+        name="apkid"
+        type="text"
       />
 
       <form-input
@@ -94,6 +108,8 @@ import formSelectInput from '~/components/formSelectInput';
 import formTextArea from '~/components/formTextArea';
 import formUploadButton from '~/components/formUploadButton';
 export default {
+  name: 'CreateModule',
+  middleware: 'auth',
   components: {
     formInput,
     formSelectInput,
@@ -112,6 +128,8 @@ export default {
         foreground_image: null,
         background_image: null,
         visit_url: '',
+        apk_url: '',
+        app_id: '',
       },
 
       isEditMode: false,
@@ -135,7 +153,7 @@ export default {
           this.$route.query.moduleId
         );
         if (
-          this.selected_module.creator._id !== this.$auth.user._id &&
+          this.selected_module.creator._id !== this.$auth.user._id ||
           this.$auth.user.role !== 'admin'
         ) {
           this.$router.replace('/');

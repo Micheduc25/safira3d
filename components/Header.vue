@@ -62,13 +62,13 @@
             class="filter-menu rounded-sm shadow-md absolute bg-white text-black p-2"
           >
             <div class="font-bold mb-2">Classer Safira par:</div>
-            <div @click="sortBy = 'most_recent'" class="">
+            <div class="" @click="sortBy = 'most_recent'">
               Plus recents en premier
             </div>
-            <div @click="sortBy = 'least_recent'" class="">
+            <div class="" @click="sortBy = 'least_recent'">
               Plus recents en dernier
             </div>
-            <div @click="sortBy = 'most_popular'" class="">
+            <div class="" @click="sortBy = 'most_popular'">
               Plus populaires en premier
             </div>
           </div>

@@ -39,10 +39,10 @@
         </client-only>
 
         <div class="stats mt-4">
-          <span class="mr-4 cursor-pointer" @click="likeModule">
+          <!-- <span class="mr-4 cursor-pointer" @click="likeModule">
             <fa-icon :icon="hasUserLikedModule ? fullHeart : emptyHeart" />
             {{ likes }}</span
-          >
+          > -->
           <span
             ><fa-icon :icon="hasUserViewedModule ? faEyeFull : faEye" />
             {{ views }}</span
@@ -50,9 +50,13 @@
         </div>
 
         <div v-if="visit_url" class="action-buttons">
-          <button class="explorer" @click="$router.push('/modules/' + _id)">
+          <nuxt-link
+            class="explorer"
+            :to="'/modules/' + _id"
+            @click.prevent="checkAuth"
+          >
             Explorer! <img src="/images/icons/stickman.png" class="person" />
-          </button>
+          </nuxt-link>
 
           <button class="download">
             Télécharger
@@ -169,6 +173,12 @@ export default {
         }
       }
     },
+
+    // checkAuth() {
+    //   if (!this.$auth.isLoggedIn) {
+    //     this.$vs
+    //   }
+    // }
   },
 };
 </script>
@@ -222,7 +232,8 @@ export default {
         @media (max-width: 600px) {
           justify-content: center;
         }
-        button {
+        button,
+        a.explorer {
           background-color: #203864;
           display: flex;
           align-items: center;

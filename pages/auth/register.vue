@@ -1,6 +1,7 @@
 <template>
   <div class="registration-form flex items-center justify-center h-screen">
-    <div
+    <form
+      autocomplete="true"
       class="register w-11/12 xs:w-9/12 sm:w-7/12 md:w-6/12 flex items-center flex-col p-6 rounded-xl bg-white shadow"
     >
       <div class="regis-title">
@@ -35,11 +36,30 @@
         name="password"
         placeholder="Votre Mot de Passe"
       />
+      <input
+        id="confirm-password"
+        v-model="formData.confirmPassword"
+        style="text-align-last: center"
+        class="border border-main py-1 mb-4 px-3 w-full"
+        type="password"
+        name="password"
+        placeholder="Confirmer Votre Mot de Passe"
+      />
 
-      <button class="bg-main w-5/12 text-white py-2 px-6" @click="register">
-        Connexion
-      </button>
-    </div>
+      <input
+        type="submit"
+        value="Créer"
+        class="bg-main w-5/12 text-white py-2 px-6 cursor-pointer"
+        @click.prevent="register"
+      />
+
+      <div class="text-md mt-4">
+        Vous avez déjà un compte?
+        <nuxt-link to="/auth/login" class="text-blue-700"
+          >connectez vous</nuxt-link
+        >
+      </div>
+    </form>
   </div>
 </template>
 
@@ -53,6 +73,7 @@ export default {
         name: '',
         email: '',
         password: '',
+        confirmPassword: '',
       },
     };
   },
@@ -61,16 +82,35 @@ export default {
     async register() {
       const loading = this.$vs.loading();
 
-      try {
-        await this.$store.dispatch('users/createUser', this.formData);
-
-        this.$router.push('/auth/login');
-      } catch (err) {
+      if (this.formData.name.length === 0) {
         this.$vs.notification({
-          text: "Nous n'avons pas pu enregistrer l'utilisateur",
+          text: "Le nom d'utilisateur ne doit pas etre vide",
           color: 'danger',
           duration: 3000,
         });
+      } else if (this.formData.password.length < 6) {
+        this.$vs.notification({
+          text: 'Le mot de passe doit avoir au moins 6 charactères',
+          color: 'danger',
+          duration: 3000,
+        });
+      } else if (this.formData.password !== this.formData.confirmPassword) {
+        this.$vs.notification({
+          text: 'Les deux mots de passes ne sont pas les memes',
+          color: 'danger',
+          duration: 3000,
+        });
+      } else {
+        try {
+          await this.$store.dispatch('users/createUser', this.formData);
+          this.$router.push('/auth/login');
+        } catch (err) {
+          this.$vs.notification({
+            text: "Nous n'avons pas pu enregistrer l'utilisateur",
+            color: 'danger',
+            duration: 3000,
+          });
+        }
       }
 
       loading.close();

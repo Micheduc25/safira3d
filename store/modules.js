@@ -184,7 +184,7 @@ export const actions = {
 
     return new Promise((resolve, reject) => {
       this.$axios
-        .post('/api/modules', formData, {
+        .post(`/api/modules`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
             'x-auth-token': this.$auth.getToken('local'),
