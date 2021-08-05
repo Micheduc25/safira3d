@@ -83,8 +83,7 @@ export default {
   },
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    baseURL: 'http://localhost:5000', // Used as fallback if no runtime config is provided
-    // baseURL: 'https://safira3d-backend.herokuapp.com', // Used as fallback if no runtime config is provided
+    baseURL: 'http://185.98.138.124:8080', // Used as fallback if no runtime config is provided
     retry: { retries: 3 },
   },
 
