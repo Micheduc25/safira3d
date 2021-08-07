@@ -87,8 +87,8 @@ export default {
   },
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    // baseURL: 'http://185.98.138.124:8080', // Used as fallback if no runtime config is provided
-    baseURL: 'http://localhost:3001', // Used as fallback if no runtime config is provided
+    baseURL: 'http://185.98.138.124:8080', // Used as fallback if no runtime config is provided
+    // baseURL: 'http://localhost:3001', // Used as fallback if no runtime config is provided
     retry: { retries: 3 },
   },
 
