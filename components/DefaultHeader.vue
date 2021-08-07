@@ -8,7 +8,7 @@
           <img
             v-if="!showSearchBar"
             class="hidden xs:block w-40 md:w-48"
-            src="/images/logos/nashma_logo.png"
+            src="/images/home/nashma_logo.png"
             alt="nashma-logo"
           />
           <img

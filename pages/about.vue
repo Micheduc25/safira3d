@@ -1,10 +1,10 @@
 <template>
-  <div class="privacy-policy"></div>
+  <div class="about-page">About</div>
 </template>
 
 <script>
 export default {
-  name: 'PrivacyPolicy',
+  name: 'AboutPage',
 };
 </script>
 

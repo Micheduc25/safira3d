@@ -3,11 +3,7 @@
     <div class="footer-wrapper page-content footer-distributed">
       <div class="footer-left">
         <a href="https://www.nashma.net" target="_blank">
-          <img
-            class="w-56"
-            src="/images/logos/nashma_logo.png"
-            alt="nashma logo"
-          />
+          <img class="w-56" src="/images/home/safira.png" alt="nashma logo" />
         </a>
 
         <p class="footer-links">
