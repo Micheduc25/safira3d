@@ -1,5 +1,5 @@
 <template>
-  <section class="module-container">
+  <section class="page-content module-container">
     <section v-if="selected_module" class="module-screen">
       <vs-dialog v-model="showDeletePopUp">
         <template #header>
@@ -21,7 +21,9 @@
         </template>
       </vs-dialog>
       <div
-        :style="{ backgroundImage: `url(${selected_module.background_image})` }"
+        :style="{
+          backgroundImage: `url('${selected_module.background_image}')`,
+        }"
         class="top-band relative"
       >
         <nuxt-link class="absolute top-0 left-0 ml-4 mt-4" to="/"
@@ -147,7 +149,7 @@ export default {
 
       //  if the user has not yet viewed the module we make him view!
       if (
-        this.$auth.loggedIn &&
+        this.$auth.user &&
         !this.selected_module.viewers.includes(this.$auth.user._id)
       ) {
         await this.$store.dispatch(
@@ -163,16 +165,23 @@ export default {
 
   methods: {
     async ratingSelected(val) {
-      //   const loading = this.$vs.loading();
-      await this.$store.dispatch('modules/rateModule', {
-        moduleId: this.selected_module._id,
-        value: val,
-      });
-      this.$vs.notification({
-        text: 'Votre note a été considéré! ',
-        color: 'success',
-        duration: 3000,
-      });
+      try {
+        await this.$store.dispatch('modules/rateModule', {
+          moduleId: this.selected_module._id,
+          value: val,
+        });
+        this.$vs.notification({
+          text: 'Votre note a été considéré! ',
+          color: 'success',
+          duration: 3000,
+        });
+      } catch (err) {
+        this.$vs.notification({
+          text: 'Une erreure est survenue',
+          color: 'danger',
+          duration: 3000,
+        });
+      }
 
       //   loading.close();
     },
@@ -202,6 +211,7 @@ export default {
 
 <style lang="scss" scoped>
 .module-screen {
+  background-color: #eee;
   .top-band {
     height: 50vh;
     background-size: cover;

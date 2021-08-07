@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-screen items-center justify-center">
+  <div class="page-content flex h-screen items-center justify-center">
     <vs-card>
       <template #text>
         <div>
@@ -19,7 +19,9 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: 'EmailSent',
+};
 </script>
 
 <style lang="scss" scoped></style>

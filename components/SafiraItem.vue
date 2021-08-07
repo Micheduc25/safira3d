@@ -2,7 +2,7 @@
   <div
     :style="{
       'border-color': secondaryColor,
-      'background-image': `url(${imageBack})`,
+      'background-image': `url('${imageBack}')`,
     }"
     class="item-main text-white"
   >
@@ -64,7 +64,7 @@
           </button>
         </div>
         <div v-else class="italics text-xl">
-          En cours de réalisation et prochainement disponible sur Safira3D.com !
+          En cours de réalisation et prochainement disponible sur Safira3D.net !
         </div>
       </div>
     </div>

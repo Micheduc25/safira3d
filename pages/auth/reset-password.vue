@@ -1,5 +1,7 @@
 <template>
-  <div class="reset-container flex h-screen items-center justify-center">
+  <div
+    class="page-content reset-container flex h-screen items-center justify-center"
+  >
     <vs-card class="w-full flex justify-center">
       <template #title>
         <h1 class="text-5xl font-bold">Réinitialisez Mot de Passe</h1>

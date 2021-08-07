@@ -25,8 +25,8 @@ export const mutations = {
     );
 
     if (moduleIndex > -1) {
-      state.modules.splice(moduleIndex, 1, updatedModule);
-      console.log('module updated!');
+      const updatemod = { ...state.modules[moduleIndex], ...updatedModule };
+      state.modules.splice(moduleIndex, 1, updatemod);
     }
   },
 
@@ -96,10 +96,16 @@ export const mutations = {
 
         break;
 
+      case 'most_viewed':
+        state.modules = state.modules.sort((prev, next) => {
+          return next.views - prev.views;
+        });
+
+        break;
+
       default:
         break;
     }
-    console.log(state.modules);
   },
 
   LIKE_MODULE(state, moduleId) {
@@ -143,17 +149,15 @@ export const mutations = {
 
 export const actions = {
   async fetchAllModules({ commit, state }) {
-    if (!state.has_modules_set) {
-      return new Promise((resolve, reject) => {
-        this.$axios
-          .get('/api/modules')
-          .then((res) => {
-            commit('SET_MODULES', res.data);
-            resolve(res);
-          })
-          .catch((err) => reject(err));
-      });
-    }
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .get('/api/modules')
+        .then((res) => {
+          commit('SET_MODULES', res.data);
+          resolve(res);
+        })
+        .catch((err) => reject(err));
+    });
   },
 
   async fetchModule({ commit }, moduleId) {
@@ -174,9 +178,7 @@ export const actions = {
 
     for (const key in data) {
       if (Array.isArray(data[key])) {
-        data[key].forEach((item) => {
-          formData.set(`${key}[]`, item);
-        });
+        formData.set(key, JSON.stringify(data[key]));
       } else {
         formData.set(`${key}`, data[key]);
       }
@@ -203,9 +205,7 @@ export const actions = {
 
     for (const key in data) {
       if (Array.isArray(data[key])) {
-        data[key].forEach((item) => {
-          formData.set(`${key}[]`, item);
-        });
+        formData.set(key, JSON.stringify(data[key]));
       } else {
         formData.set(`${key}`, data[key]);
       }
@@ -219,7 +219,7 @@ export const actions = {
           },
         })
         .then((res) => {
-          commit('EDIT_MODULE', res.data.data);
+          commit('EDIT_MODULE', { ...res.data.data, _id: moduleId });
           resolve(res);
         })
         .catch((err) => reject(err));
@@ -247,7 +247,7 @@ export const actions = {
     commit('SEARCH_MODULE', searchKey);
   },
 
-  async rateModule(context, { moduleId, value }) {
+  async rateModule({ commit }, { moduleId, value }) {
     return new Promise((resolve, reject) => {
       if (!this.$auth.loggedIn) reject(Error('unauthorized'));
       this.$axios
@@ -263,6 +263,8 @@ export const actions = {
           }
         )
         .then((res) => {
+          commit('EDIT_MODULE', { _id: moduleId, rating: value });
+
           resolve(res);
         })
         .catch((err) => {

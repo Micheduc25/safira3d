@@ -11,10 +11,15 @@ body {
 *,
 *::before,
 *::after {
-  font-size: 1.8rem;
+  font-size: 2rem;
   box-sizing: inherit;
   margin: 0;
   padding: 0;
+}
+
+.page-content{
+  max-width:1500px;
+  @apply mx-auto;
 }
 
 .fade-enter-active,

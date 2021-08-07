@@ -1,5 +1,5 @@
 <template>
-  <section class="home-page flex justify-end pb-10 relative">
+  <section class="page-content home-page flex justify-end pb-10 relative">
     <div class="home-link absolute">
       <nuxt-link to="/">
         <img
@@ -35,12 +35,23 @@
             placeholder="Votre Mot de Passe"
           />
 
-          <button
+          <!-- <label for="rememberme" class="my-4 flex items-center"
+            >Se souvenir de moi
+            <input
+              type="checkbox"
+              name="rememberme"
+              id="rememberme"
+              v-model="rememberme"
+              class="w-8 h-8 ml-2"
+          /></label> -->
+
+          <input
             class="bg-main w-5/12 text-white py-2 px-6"
+            type="submit"
+            value="Connexion"
             @click="login('local')"
-          >
-            Connexion
-          </button>
+          />
+
           <div class="forgot-password w-full justify-center text-center">
             <nuxt-link
               to="/auth/reset-password"
@@ -122,6 +133,7 @@ export default {
     return {
       email: '',
       password: '',
+      // rememberme: false,
     };
   },
 
@@ -129,12 +141,8 @@ export default {
     ...mapGetters('users', ['new_register_data']),
   },
   created() {
-    if (
-      this.new_register_data.email.length > 0 &&
-      this.new_register_data.password.length > 0
-    ) {
-      this.email = this.new_register_data.email;
-      this.password = this.new_register_data.password;
+    if (this.$route.query.email) {
+      this.email = this.$route.query.email;
     }
   },
   methods: {
@@ -149,6 +157,8 @@ export default {
             },
           });
 
+          // after login we check if the user is verified, if not we redirect him to verification page
+
           if (
             this.new_register_data.email.length > 0 &&
             this.new_register_data.password.length > 0
@@ -159,13 +169,19 @@ export default {
             });
           }
 
-          this.$router.replace('/');
+          if (this.$route.query.nextlink) {
+            this.$router.replace(this.$route.query.nextlink);
+          } else this.$router.replace('/');
         } catch (err) {
           this.$vs.notification({
-            text: err,
+            text: err.response.data,
             color: 'danger',
             duration: 3000,
           });
+
+          if (err.response.data === "L'utilisateur n'a pas été vérifié") {
+            this.$router.push(`/auth/email-verification?email=${this.email}`);
+          }
         }
         loading.close();
       }

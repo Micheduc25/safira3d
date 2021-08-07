@@ -1,6 +1,8 @@
 <template>
-  <div class="module-form">
-    <div class="form-wrapper w-7/12 mx-auto text-4xl">
+  <div class="page-content module-form py-8">
+    <div
+      class="form-wrapper bg-white rounded-md shadow-outline p-5 w-11/12 md:w-9/12 lg:w-7/12 mx-auto text-4xl"
+    >
       <div class="title font-bold mb-8 mt-4 text-5xl text-center">
         {{ !isEditMode ? 'Ajouter un Module Safira' : 'Modifier Module' }}
       </div>
@@ -96,6 +98,12 @@
           {{ isEditMode ? 'Modifier' : 'Créer' }}
         </button>
       </div>
+
+      <button
+        class="w-20 h-20 z-50 rounded-full bg-blue-900 text-white fixed right-10 bottom-16"
+      >
+        Clear
+      </button>
     </div>
   </div>
 </template>
@@ -109,7 +117,7 @@ import formTextArea from '~/components/formTextArea';
 import formUploadButton from '~/components/formUploadButton';
 export default {
   name: 'CreateModule',
-  middleware: 'auth',
+  middleware: ['auth', 'admin'],
   components: {
     formInput,
     formSelectInput,
@@ -167,9 +175,10 @@ export default {
           this.formData.categories = this.selected_module.categories;
           this.formData.foreground_image = this.selected_module.foreground_image;
           this.formData.background_image = this.selected_module.background_image;
+          this.formData.apk_url = this.selected_module.apk_url;
+          this.formData.app_id = this.selected_module.app_id;
         }
       } catch (err) {
-        console.log('an error occured====>', err);
         this.$router.replace('/');
       }
     }
@@ -202,14 +211,12 @@ export default {
           color: 'danger',
           text: 'Un erreur est survenu lors de la création du module',
         });
-        // console.error(err);
       }
       loading.close();
       this.isCreating = false;
     },
 
     async updateModule() {
-      console.log('going to update');
       this.isCreating = true;
       const loading = this.$vs.loading();
 
@@ -223,7 +230,7 @@ export default {
           color: 'success',
           duration: 3000,
         });
-        this.$router.back();
+        this.$router.replace(`/modules/${this.$route.query.moduleId}`);
       } catch (err) {
         this.$vs.notification({
           text: 'Une erreur est survenu lors de la modification du module',
@@ -248,4 +255,18 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.module-form {
+  background-image: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.7),
+      rgba(255, 255, 255, 0.8)
+    ),
+    url('/images/home/homebg.png');
+  //   height: 100vh;
+  background-size: cover;
+}
+</style>

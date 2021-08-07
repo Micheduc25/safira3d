@@ -1,5 +1,7 @@
 <template>
-  <div class="registration-form flex items-center justify-center h-screen">
+  <div
+    class="page-content registration-form flex items-center justify-center h-screen"
+  >
     <form
       autocomplete="true"
       class="register w-11/12 xs:w-9/12 sm:w-7/12 md:w-6/12 flex items-center flex-col p-6 rounded-xl bg-white shadow"
@@ -86,29 +88,31 @@ export default {
         this.$vs.notification({
           text: "Le nom d'utilisateur ne doit pas etre vide",
           color: 'danger',
-          duration: 3000,
+          duration: 4000,
         });
       } else if (this.formData.password.length < 6) {
         this.$vs.notification({
           text: 'Le mot de passe doit avoir au moins 6 charactères',
           color: 'danger',
-          duration: 3000,
+          duration: 4000,
         });
       } else if (this.formData.password !== this.formData.confirmPassword) {
         this.$vs.notification({
           text: 'Les deux mots de passes ne sont pas les memes',
           color: 'danger',
-          duration: 3000,
+          duration: 4000,
         });
       } else {
         try {
           await this.$store.dispatch('users/createUser', this.formData);
-          this.$router.push('/auth/login');
+          this.$router.push(
+            `/auth/email-verification?email=${this.formData.email}`
+          );
         } catch (err) {
           this.$vs.notification({
-            text: "Nous n'avons pas pu enregistrer l'utilisateur",
+            text: err,
             color: 'danger',
-            duration: 3000,
+            duration: 4000,
           });
         }
       }

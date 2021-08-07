@@ -1,12 +1,10 @@
 <template>
-  <div></div>
+  <div class="contact-page"></div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {};
-  },
+  name: 'ContactPage',
 };
 </script>
 

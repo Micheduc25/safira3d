@@ -2,15 +2,18 @@ export const state = () => {
   return {
     //  data of the newly registered member
     new_register_data: {
+      id: '',
       email: '',
       password: '',
+      role: '',
+      is_verified: '',
     },
   };
 };
 
 export const mutations = {
-  SET_REGISTER_DATA(state, data) {
-    state.new_register_data = data;
+  SET_REGISTER_DATA(state, payload) {
+    state.new_register_data = payload;
   },
 };
 
@@ -27,10 +30,32 @@ export const actions = {
           password,
         })
         .then((res) => {
-          commit('SET_REGISTER_DATA', { email, password });
+          commit('SET_REGISTER_DATA', res.data);
           resolve(res);
         })
-        .catch((err) => reject(err));
+        .catch((err) => reject(err.response.data));
+    });
+  },
+
+  verifyEmail({ commit }, { email, code }) {
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .post('/api/users/verify', { email, code })
+        .then((res) => {
+          resolve(res.data);
+        })
+        .catch((err) => reject(err.response.data));
+    });
+  },
+
+  sendEmailVerification({ commit }, { email }) {
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .post('/api/users/verification', { email })
+        .then((res) => {
+          resolve(res.data);
+        })
+        .catch((err) => reject(err.response.data));
     });
   },
 };
