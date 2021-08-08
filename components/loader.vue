@@ -42,7 +42,7 @@ export default {};
       background-color: #203864;
 
       animation-timing-function: ease-in-out;
-      animation-duration: 2s;
+      animation-duration: 1s;
       animation-iteration-count: infinite;
       animation-fill-mode: forwards;
 
@@ -50,13 +50,13 @@ export default {};
         margin-right: 5px;
       }
 
-      &:nth-child(2) {
+      &:nth-child(1) {
         animation-name: animatedots1;
       }
-      &:nth-child(3) {
+      &:nth-child(2) {
         animation-name: animatedots2;
       }
-      &:nth-child(4) {
+      &:nth-child(3) {
         animation-name: animatedots3;
       }
     }
