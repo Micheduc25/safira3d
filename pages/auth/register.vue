@@ -7,7 +7,9 @@
       class="register w-11/12 xs:w-9/12 sm:w-7/12 md:w-6/12 flex items-center flex-col p-6 rounded-xl bg-white shadow"
     >
       <div class="regis-title">
-        <h1 class="text-6xl font-bold tracking-wide mb-8">Créer un Compte</h1>
+        <h1 class="text-5xl sm:text-6xl font-bold tracking-wide mb-8">
+          Créer un Compte
+        </h1>
       </div>
       <input
         id="username"
@@ -55,7 +57,7 @@
         @click.prevent="register"
       />
 
-      <div class="text-md mt-4">
+      <div class="text-md mt-4 text-center">
         Vous avez déjà un compte?
         <nuxt-link to="/auth/login" class="text-blue-700"
           >connectez vous</nuxt-link

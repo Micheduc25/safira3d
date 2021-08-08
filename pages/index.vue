@@ -3,28 +3,29 @@
     <loader v-show="showLoader" />
     <div v-show="!showLoader" class="home-main">
       <div class="upper-band relative">
-        <div class="upper-band-content w-4/12">
-          <img src="/images/home/safira.png" alt="safira" />
-          <p class="mt-4 text-4xl">
-            Bienvenue sur <span class="font-bold text-4xl">Safira3D.com</span>,
-            la première plateforme web de réalité virtuelle consacrée aux plus
-            grands lieux du patrimoine culturel, historique et naturel du
-            Cameroun et de l’Afrique !
-          </p>
-          <div class="font-bold w-full text-left text-3xl">
-            Explorez – Découvrez – Apprenez !
+        <div class="upper-band-content w-5/12">
+          <div class="band-content-upper">
+            <img src="/images/home/safira.png" alt="safira" />
+            <p class="mt-4 text-4xl">
+              Bienvenue sur
+              <span class="font-bold text-4xl">Safira3D.com</span>, la première
+              plateforme web de réalité virtuelle consacrée aux plus grands
+              lieux du patrimoine culturel, historique et naturel du Cameroun et
+              de l’Afrique !
+            </p>
+            <div class="font-bold w-full text-left text-3xl">
+              Explorez – Découvrez – Apprenez !
+            </div>
           </div>
-        </div>
-        <div
-          v-if="!$auth.user"
-          class="auth-options z-50 mb-4 mr-4 flex flex-col justify-center items-center md:flex-row"
-        >
-          <nuxt-link to="/auth/login" class="auth-button mr-6"
-            >Se Connecter</nuxt-link
-          >
-          <nuxt-link to="/auth/register" class="auth-button"
-            >Créer un Compte</nuxt-link
-          >
+
+          <div v-if="!$auth.user" class="auth-options mb-4 flex mt-3 ml-auto">
+            <nuxt-link to="/auth/login" class="auth-button mr-6 mb-3"
+              >Se connecter</nuxt-link
+            >
+            <nuxt-link to="/auth/register" class="auth-button mb-3"
+              >Créer un compte</nuxt-link
+            >
+          </div>
         </div>
       </div>
       <transition-group name="fade">
@@ -72,11 +73,14 @@
       </div>
 
       <div class="bg-main w-full">
-        <div class="last-section page-content px-3 py-6 text-white">
-          <div class="text-5xl font-bold">
+        <div class="last-section page-content px-6 py-6 text-white">
+          <div class="text-4xl font-bold">
             Voudriez-vous que votre site apparaisse également ici?
           </div>
-          <div>
+          <div
+            style="font-family: sans-serif; font-size: 16px"
+            class="font-normal"
+          >
             Vous êtes responsable d’un site touristique, hôtel, parc, campus
             scolaire ou universitaire, bureau… ou de tout autres lieux que vous
             voudriez faire découvrir au Monde? Vous voudriez attirer plus de
@@ -85,9 +89,13 @@
           </div>
 
           <div class="formulaire flex justify-center mt-4">
-            <button class="formulaire-but text-3xl">
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLSeHtxIITPPq9SmgfIyzRp2kbcFS_nHo_mAFRhgp807OFD4_Mw/viewform"
+              target="_blank"
+              class="formulaire-but text-3xl"
+            >
               Remplir le formulaire
-            </button>
+            </a>
           </div>
         </div>
       </div>
@@ -140,18 +148,6 @@ export default {
       this.showLoader = false;
     }
   },
-
-  mounted() {
-    // this.$nextTick(() => {
-    //   this.showLoader = false;
-    // });
-  },
-
-  // watch:{
-  //   page(newVal){
-
-  //   }
-  // }
 };
 </script>
 
@@ -162,11 +158,11 @@ export default {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center left;
-    min-height: 60vh;
+    min-height: 70vh;
     width: 100%;
     display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
+    justify-content: center;
+    align-items: center;
 
     .auth-button {
       background: #203864;
@@ -176,6 +172,7 @@ export default {
       color: white;
       display: block;
       transition: 0.3s;
+      text-align: center;
 
       &:hover {
         background: lighten($color: #203864, $amount: 20);
@@ -183,48 +180,75 @@ export default {
     }
 
     .upper-band-content {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      right: 15%;
+      transform: translateX(50%);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
+      min-width: 600px;
       color: #203864;
       padding: 5px;
-      background: rgba(255, 255, 255, 0.4);
-      @media (max-width: 1050px) {
-        width: 45%;
+      .band-content-upper {
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0),
+          rgba(255, 255, 255, 0.5),
+          rgba(255, 255, 255, 0.5),
+          rgba(255, 255, 255, 0.5),
+          rgba(255, 255, 255, 0.5),
+          rgba(255, 255, 255, 0.5),
+          rgba(255, 255, 255, 0.5),
+          rgba(255, 255, 255, 0.5),
+          rgba(255, 255, 255, 0.5),
+          rgba(255, 255, 255, 0.1),
+          rgba(255, 255, 255, 0)
+        );
+        font-weight: 600;
+        padding: 10px;
       }
-      @media (max-width: 769px) {
-        width: 60%;
-        right: 5%;
+      @media only screen and (max-width: 1200px) {
+        transform: translateX(0);
       }
-      @media (max-width: 600px) {
-        width: 80%;
-
+      @media only screen and (max-width: 650px) {
+        width: 90%;
+        min-width: auto;
         padding: 5px;
-        background: rgba(0, 0, 0, 0.4);
+        background: linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0),
+          rgba(0, 0, 0, 0.5),
+          rgba(0, 0, 0, 0.5),
+          rgba(0, 0, 0, 0.5),
+          rgba(0, 0, 0, 0.5),
+          rgba(0, 0, 0, 0.5),
+          rgba(0, 0, 0, 0.5),
+          rgba(0, 0, 0, 0.5),
+          rgba(0, 0, 0, 0.5),
+          rgba(0, 0, 0, 0.1),
+          rgba(0, 0, 0, 0)
+        );
         color: white !important;
-        left: 50%;
-        transform: translate(-50%, -50%);
 
+        .band-content-upper {
+          background: none;
+        }
+        .auth-options {
+          @apply mx-auto;
+        }
         img {
           width: 200px !important;
         }
       }
-      @media (max-width: 465px) {
+      @media only screen and (max-width: 465px) {
         img {
           width: 170px !important;
         }
       }
-      @media (max-width: 389px) {
+      @media only screen and (max-width: 389px) {
         width: 97%;
-        left: 50%;
-        transform: translate(-50%, -50%);
         padding: 5px;
-        background: rgba(0, 0, 0, 0.4);
+        // background: rgba(0, 0, 0, 0.4);
+
         color: white;
 
         img {

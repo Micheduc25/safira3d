@@ -29,8 +29,8 @@
       {{ errorMessage }}
     </div>
     <div v-if="files" class="w-full text-left mt-1 text-sm">
-      <span v-for="file in files" :key="file.name" class="block">{{
-        file.name
+      <span v-for="file_item in files" :key="file_item.name" class="block">{{
+        file_item.name
       }}</span>
     </div>
   </div>

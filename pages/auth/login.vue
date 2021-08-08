@@ -1,25 +1,21 @@
 <template>
-  <section class="page-content home-page flex justify-end pb-10 relative">
-    <div class="home-link absolute">
-      <nuxt-link to="/">
-        <img
-          class="hidden xs:block w-40 md:w-48"
-          src="/images/logos/nashma_logo.png"
-          alt="nashma-logo"
-        />
-      </nuxt-link>
-    </div>
+  <section
+    class="page-content home-page flex justify-center md:justify-end pb-10 relative"
+  >
     <div class="home-content flex flex-col items-end">
       <div class="content-upper w-full flex md:flex-col flex-col-reverse">
         <div class="text-main text-3xl w-full mb-2 mt-4 text-center font-bold">
           Connectez Vous !
         </div>
-        <div class="login w-full flex items-center flex-col mb-20">
+        <form
+          autocomplete="on"
+          class="login w-full flex items-center flex-col mb-20"
+        >
           <input
             id="email"
             v-model="email"
             style="text-align-last: center"
-            class="border border-main py-1 mb-4 px-3 w-5/12"
+            class="border border-main py-1 mb-4 px-3 w-10/12 sm:w-9/12 lg:w-6/12"
             type="email"
             name="email"
             placeholder="Votre Email"
@@ -29,27 +25,17 @@
             id="password"
             v-model="password"
             style="text-align-last: center"
-            class="border border-main py-1 mb-4 px-3 w-5/12"
+            class="border border-main py-1 mb-4 px-3 w-10/12 sm:w-9/12 lg:w-6/12"
             type="password"
             name="password"
             placeholder="Votre Mot de Passe"
           />
 
-          <!-- <label for="rememberme" class="my-4 flex items-center"
-            >Se souvenir de moi
-            <input
-              type="checkbox"
-              name="rememberme"
-              id="rememberme"
-              v-model="rememberme"
-              class="w-8 h-8 ml-2"
-          /></label> -->
-
           <input
-            class="bg-main w-5/12 text-white py-2 px-6"
+            class="login-but bg-main w-6/12 text-white py-2 px-6"
             type="submit"
             value="Connexion"
-            @click="login('local')"
+            @click.prevent="login('local')"
           />
 
           <div class="forgot-password w-full justify-center text-center">
@@ -63,11 +49,10 @@
           <nuxt-link to="/auth/register" class="bg-main text-white py-2 px-2">
             Créer un compte
           </nuxt-link>
-        </div>
+        </form>
 
         <div
-          style="height: 250px"
-          class="safira-logo flex w-full justify-center mb-40"
+          class="safira-logo flex w-full h-56 md:h-90 justify-center mb-10 md:mb-40"
         >
           <img
             class="h-full"
@@ -107,17 +92,6 @@
             />
             <span class="text-4xl">Se connecter avec Facebook </span>
           </button>
-          <!-- <button
-         
-            class="shadow-lg px-6 py-1 flex items-center bg-main text-white"
-          >
-            <img
-              class="w-16 h-16 mr-4"
-              src="/images/icons/envelop.png"
-              alt="email signup"
-            />
-            <span class="text-4xl">Je me connecte avec mon Email </span>
-          </button> -->
         </div>
       </div>
     </div>
@@ -128,12 +102,10 @@
 import { mapGetters } from 'vuex';
 export default {
   name: 'Login',
-  // middleware: 'auth',
   data() {
     return {
       email: '',
       password: '',
-      // rememberme: false,
     };
   },
 
@@ -178,6 +150,12 @@ export default {
           }
         }
         loading.close();
+      } else {
+        this.$vs.notification({
+          text: 'Les champs du formulaire ne doivent pas etre vides',
+          color: 'danger',
+          duration: 3000,
+        });
       }
     },
 
@@ -208,12 +186,12 @@ export default {
   .home-content {
     flex-basis: 600px;
   }
-
-  .home-link {
-    top: 20px;
-    left: 30px;
-    background-color: rgba(0, 0, 0, 0.3);
-    padding: 7px;
+  .login-but {
+    cursor: pointer;
+    transition: 0.3s;
+    &:hover {
+      background: lighten($color: #203864, $amount: 10);
+    }
   }
 }
 </style>

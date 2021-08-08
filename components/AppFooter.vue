@@ -1,6 +1,6 @@
 <template>
   <footer class="w-full bg-main">
-    <div class="footer-wrapper page-content footer-distributed">
+    <div class="footer-wrapper px-6 page-content footer-distributed">
       <div class="footer-left">
         <a href="https://www.nashma.net" target="_blank">
           <img class="w-56" src="/images/home/safira.png" alt="nashma logo" />
@@ -14,7 +14,7 @@
           <nuxt-link to="/privacy">Privacy Policy</nuxt-link>
         </p>
 
-        <p class="footer-company-name">Safirad3D © {{ currentYear }}</p>
+        <p class="footer-company-name">Copyright © {{ currentYear }} Nashma</p>
       </div>
 
       <div class="footer-right">

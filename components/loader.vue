@@ -1,8 +1,8 @@
 <template>
   <div class="nashma-loader">
     <img src="/images/icons/nashma-icon.png" alt="" />
-    <div class="dots">
-      <div class="font-bold text-4xl tracking-wide mr-2">Loading</div>
+    <div class="dots mt-4">
+      <!-- <div class="font-bold text-4xl tracking-wide mr-2">Loading</div> -->
       <span></span>
       <span></span>
       <span></span>
@@ -19,6 +19,7 @@ export default {};
   width: max-content;
   padding: 10px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
@@ -26,12 +27,13 @@ export default {};
     width: 80px;
     height: 80px;
     margin-right: 7px;
-    animation: rotatecircle 2s infinite ease-in-out;
+    // animation: rotatecircle 2s infinite ease-in-out;
   }
 
   .dots {
     display: flex;
     align-items: center;
+    width: max-content;
     span {
       width: 10px;
       height: 10px;
