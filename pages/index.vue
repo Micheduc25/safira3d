@@ -1,6 +1,25 @@
 <template>
-  <div class="page-content home-or-loader flex items-center justify-center">
+  <div
+    class="page-content home-or-loader flex flex-col items-center justify-center"
+  >
     <loader v-show="showLoader" />
+    <div
+      v-show="!showLoader"
+      class="search-bar flex flex-row- items-center w-full xs:hidden"
+    >
+      <button
+        class="search-but px-3 w-16 rounded-none bg-main flex items-center justify-center focus:outline-none"
+      >
+        <img src="/images/icons/searchbar.png" class="" alt="search bar" />
+      </button>
+      <input
+        v-model="searchKey"
+        type="search"
+        class="text-black flex-grow px-2 py-2 rounded-none border border-black w-0 transition-all duration-300"
+        placeholder="un lieu, un pays, une ville, un quartier ou une catégorie de sites
+            "
+      />
+    </div>
     <div v-show="!showLoader" class="home-main">
       <div class="upper-band relative">
         <div class="upper-band-content w-5/12">
@@ -119,6 +138,7 @@ export default {
       showLoader: true,
       page: 1,
       step: 5,
+      searchKey: '',
     };
   },
   computed: {
@@ -132,6 +152,11 @@ export default {
 
     totalPages() {
       return Math.ceil(this.filtered_modules.length / this.step);
+    },
+  },
+  watch: {
+    searchKey(newVal) {
+      this.$store.dispatch('modules/searchModule', newVal);
     },
   },
 

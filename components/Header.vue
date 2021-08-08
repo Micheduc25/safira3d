@@ -6,7 +6,6 @@
       >
         <div class="logo py-4 pl-2 mr-6">
           <img
-            v-if="!showSearchBar"
             class="hidden xs:block w-40 md:w-48"
             src="/images/logos/nashma_logo.png"
             alt="nashma-logo"
@@ -21,7 +20,9 @@
         <div class="hereee flex items-center">
           <div class="search-section text-white flex items-center">
             <div class="mr-1 hidden md:block">Rechercher:</div>
-            <div class="search-bar ml-2 flex items-center md:mr-0 mr-4">
+            <div
+              class="search-bar ml-2 items-center hidden xs:flex md:mr-0 mr-4"
+            >
               <label for="search" class="">
                 <input
                   v-model="searchKey"
@@ -32,15 +33,16 @@
             "
                 />
               </label>
-              <div class="search-but px-3">
+              <button
+                class="search-but px-3 flex items-center justify-center focus:outline-none"
+                @click="showSearchBar = !showSearchBar"
+              >
                 <img
                   src="/images/icons/searchbar.png"
-                  width="17"
-                  height="17"
+                  class=""
                   alt="search bar"
-                  @click="showSearchBar = !showSearchBar"
                 />
-              </div>
+              </button>
             </div>
 
             <div
@@ -156,14 +158,18 @@ export default {
   input[type='text'] {
     border-radius: 0;
     border: none;
+    width: 100%;
+    height: 40px;
   }
 
   .search-but {
-    border: 1px groove black;
-    height: auto;
+    // border: 1px groove black;
     display: flex;
     align-items: center;
     justify-content: center;
+    img {
+      width: 20px;
+    }
     cursor: pointer;
   }
 }

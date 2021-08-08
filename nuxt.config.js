@@ -1,7 +1,7 @@
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: 'safira3d',
+    title: 'Safira3D',
     meta: [
       { charset: 'utf-8' },
       {
