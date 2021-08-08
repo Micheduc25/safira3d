@@ -13,6 +13,7 @@
       <div v-if="isTel" class="mr-1">{{ countryCode }}</div>
       <label class="w-full" :for="name">
         <input
+          :id="id"
           v-model="fieldValue"
           :disabled="disabled"
           class="focus:outline-none w-full"
@@ -58,7 +59,8 @@ export default {
     },
     // eslint-disable-next-line vue/require-prop-type-constructor
     initialValue: String | Number,
-    name: String,
+    name: { type: String, default: '' },
+    id: { type: String, default: '' },
     errorMessage: {
       default: '',
       type: String,
@@ -67,9 +69,9 @@ export default {
       default: false,
       type: Boolean,
     },
-    value: String,
-    placeholder: String,
-    label: String,
+    value: { type: String, default: '' },
+    placeholder: { type: String, default: '' },
+    label: { type: String, default: '' },
   },
 
   data() {

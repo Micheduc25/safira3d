@@ -7,6 +7,7 @@
         {{ !isEditMode ? 'Ajouter un Module Safira' : 'Modifier Module' }}
       </div>
       <form-input
+        id="title"
         v-model="formData.title"
         :initial-value="formData.title"
         label="Titre"
@@ -14,11 +15,13 @@
         type="text"
       />
       <form-text-area
+        id="description"
         v-model="formData.description"
         label="Description"
         name="description"
       />
       <form-input
+        id="location"
         v-model="formData.location"
         :initial-value="formData.location"
         label="Location"
@@ -26,6 +29,7 @@
         type="text"
       />
       <form-input
+        id="visiturl"
         v-model="formData.visit_url"
         :initial-value="formData.visit_url"
         label="Url du Module"
@@ -33,6 +37,7 @@
         type="url"
       />
       <form-input
+        id="apkurl"
         v-model="formData.apk_url"
         :initial-value="formData.apk_url"
         label="Url de l'APK"
@@ -40,6 +45,7 @@
         type="url"
       />
       <form-input
+        id="apkid"
         v-model="formData.app_id"
         :initial-value="formData.app_id"
         label="Identifiant Apk"
@@ -48,6 +54,7 @@
       />
 
       <form-input
+        id="main_color"
         v-model="formData.main_color"
         :initial-value="formData.main_color"
         label="Couleur Princiale"
@@ -55,6 +62,7 @@
         type="color"
       />
       <form-input
+        id="secondary_color"
         v-model="formData.secondary_color"
         :initial-value="formData.secondary_color"
         label="Couleur de Fond"
@@ -75,6 +83,7 @@
         @valueSelected="categoriesSelected"
       />
       <form-upload-button
+        id="upload_foreground"
         file-mimes="images/*"
         text="Choisir"
         label="Image Primaire"
@@ -82,6 +91,7 @@
       />
       <img id="fgimg" class="mb-10" :src="formData.foreground_image" alt="" />
       <form-upload-button
+        id="upload_background"
         file-mimes="images/*"
         text="Choisir"
         label="Image de Fond"

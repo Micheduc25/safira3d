@@ -10,6 +10,7 @@
         <div class="upload-btn-wrapper">
           <button class="btn">{{ text }}</button>
           <input
+            :id="id"
             ref="upload"
             :multiple="multiple"
             :accept="
@@ -39,18 +40,19 @@
 export default {
   name: 'FormUploadButton',
   props: {
-    label: String,
-    name: String,
+    label: { type: String, default: '' },
+    name: { type: String, default: '' },
+    id: { type: String, default: '' },
     multiple: {
       type: Boolean,
       default: false,
     },
-    fileMimes: String,
+    fileMimes: { type: String, default: '' },
     text: {
       type: String,
       default: 'Choissir un Fichier',
     },
-    errorMessage: String,
+    errorMessage: { type: String, default: '' },
   },
 
   data() {

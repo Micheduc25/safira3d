@@ -51,7 +51,7 @@ export default {
     },
     // eslint-disable-next-line vue/require-prop-type-constructor
     initialValue: String | Number,
-    name: String,
+    name: { type: String, default: '' },
     errorMessage: {
       default: '',
       type: String,
@@ -60,9 +60,9 @@ export default {
       default: false,
       type: Boolean,
     },
-    value: String,
-    placeholder: String,
-    label: String,
+    value: { type: String, default: '' },
+    placeholder: { type: String, default: '' },
+    label: { type: String, default: '' },
   },
 
   data() {
