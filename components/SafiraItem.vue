@@ -208,6 +208,13 @@ export default {
       img.item-image {
         height: auto;
         width: 500px;
+        margin-top: 10px;
+      }
+    }
+    @media (max-width: 530px) {
+      img.item-image {
+        width: auto;
+        margin-top: 0;
       }
     }
 
