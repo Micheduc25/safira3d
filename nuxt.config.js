@@ -87,8 +87,8 @@ export default {
   },
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    // baseURL: 'https://api.safira3d.net', // Used as fallback if no runtime config is provided
-    baseURL: 'http://localhost:3001', // Used as fallback if no runtime config is provided
+    baseURL: 'https://api.safira3d.net',
+    // baseURL: 'http://localhost:3001', // Used as fallback if no runtime config is provided
     retry: { retries: 3 },
   },
 
@@ -108,7 +108,10 @@ export default {
   build: {
     // transpile: ['vue-agile'],
     babel: {
-      plugins: [['@babel/plugin-proposal-private-methods', { loose: true }]],
+      plugins: [
+        ['@babel/plugin-proposal-private-methods', { loose: true }],
+        ['@babel/plugin-proposal-private-property-in-object', { loose: true }],
+      ],
     },
   },
 
