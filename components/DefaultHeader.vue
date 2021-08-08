@@ -7,14 +7,9 @@
         <nuxt-link to="/" class="logo py-4 pl-2 mr-6">
           <img
             v-if="!showSearchBar"
-            class="hidden xs:block w-40 md:w-48"
-            src="/images/home/nashma_logo.png"
+            class="w-40 md:w-48"
+            src="/images/logos/nashma_logo.png"
             alt="nashma-logo"
-          />
-          <img
-            class="xs:hidden block w-16"
-            src="/images/icons/nashma-icon.png"
-            alt="nashma logo"
           />
         </nuxt-link>
       </div>

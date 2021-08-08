@@ -27,29 +27,30 @@
           >
         </div>
       </div>
-      <safira-item
-        v-for="module in currentPageItems"
-        :key="module._id"
-        :_id="module._id"
-        :views="module.views"
-        :rating="module.rating"
-        :likes="module.likes"
-        :image-main="module.foreground_image"
-        :image-back="module.background_image"
-        :title="module.title"
-        :location="module.location"
-        :categories="module.categories.join('-')"
-        :main-color="module.main_color"
-        :secondary-color="module.secondary_color"
-        :likers="module.likers"
-        :viewers="module.viewers"
-        :visit_url="module.visit_url"
-      >
-        <template #description>
-          {{ module.description }}
-        </template>
-      </safira-item>
-
+      <transition-group name="fade">
+        <safira-item
+          v-for="module in currentPageItems"
+          :key="module._id"
+          :_id="module._id"
+          :views="module.views"
+          :rating="module.rating"
+          :likes="module.likes"
+          :image-main="module.foreground_image"
+          :image-back="module.background_image"
+          :title="module.title"
+          :location="module.location"
+          :categories="module.categories.join('-')"
+          :main-color="module.main_color"
+          :secondary-color="module.secondary_color"
+          :likers="module.likers"
+          :viewers="module.viewers"
+          :visit_url="module.visit_url"
+        >
+          <template #description>
+            {{ module.description }}
+          </template>
+        </safira-item>
+      </transition-group>
       <div class="more">
         <p class="w-7/12 mx-auto text-center text-3xl">
           Notre plateforme web de réalité virtuelle évolue tous les jours.
@@ -192,7 +193,7 @@ export default {
       justify-content: flex-start;
       color: #203864;
       padding: 5px;
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.4);
       @media (max-width: 1050px) {
         width: 45%;
       }

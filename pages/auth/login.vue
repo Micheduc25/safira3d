@@ -158,16 +158,10 @@ export default {
           });
 
           // after login we check if the user is verified, if not we redirect him to verification page
-
-          if (
-            this.new_register_data.email.length > 0 &&
-            this.new_register_data.password.length > 0
-          ) {
-            this.$store.dispatch('users/setRegisterData', {
-              email: '',
-              password: '',
-            });
-          }
+          this.$store.dispatch('users/setRegisterData', {
+            email: '',
+            password: '',
+          });
 
           if (this.$route.query.nextlink) {
             this.$router.replace(this.$route.query.nextlink);
