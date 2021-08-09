@@ -225,14 +225,21 @@ export default {
           rgba(255, 255, 255, 0.5),
           rgba(255, 255, 255, 0.5),
           rgba(255, 255, 255, 0.5),
+          rgba(255, 255, 255, 0.5),
+          rgba(255, 255, 255, 0.5),
           rgba(255, 255, 255, 0.1),
           rgba(255, 255, 255, 0)
         );
         font-weight: 600;
-        padding: 10px;
+        padding: 20px 10px;
       }
       @media only screen and (max-width: 1200px) {
         transform: translateX(0);
+      }
+      @media only screen and (max-width: 822px) {
+        .band-content-upper {
+          background: rgba(255, 255, 255, 0.5);
+        }
       }
       @media only screen and (max-width: 650px) {
         width: 90%;
