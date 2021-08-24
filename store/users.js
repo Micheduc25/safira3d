@@ -58,6 +58,29 @@ export const actions = {
         .catch((err) => reject(err.response.data));
     });
   },
+
+  socialLogin({ commit }, userData) {
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .post('/api/auth/social-login', userData)
+        .then((res) => {
+          this.$auth.setUser(res.data.user);
+          this.$auth.setUserToken(res.data.token);
+          resolve(res.data);
+        })
+        .catch((err) => reject(err.response.data));
+    });
+  },
+  socialSignup({ commit }, userData) {
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .post('/api/auth/social-signup', userData)
+        .then((res) => {
+          resolve(res.data);
+        })
+        .catch((err) => reject(err.response.data));
+    });
+  },
 };
 
 export const getters = {

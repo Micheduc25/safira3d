@@ -177,17 +177,28 @@ export default {
       if (strategy === 'google') {
         try {
           const res = await this.$googleAuth.signIn();
-          console.log(res);
+
+          await this.$store.dispatch('users/socialLogin', res.userData);
+          this.$router.replace('/');
         } catch (error) {
+          this.$vs.notification({
+            text: 'Une erreure est survenue lors de la connexion',
+            color: 'danger',
+            duration: 4000,
+          });
           console.log(error);
         }
       } else if (strategy === 'facebook') {
         try {
           const res = await this.$fbAuth.signIn();
-          // const res = await this.$auth.loginWith('google');
-          console.log(res);
+          await this.$store.dispatch('users/socialLogin', res.userData);
+          this.$router.replace('/');
         } catch (error) {
-          console.log(error);
+          this.$vs.notification({
+            text: 'Une erreure est survenue lors de la connexion',
+            color: 'danger',
+            duration: 4000,
+          });
         }
       }
       loading.close();
