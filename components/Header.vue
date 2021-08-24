@@ -45,10 +45,7 @@
               </button>
             </div>
 
-            <div
-              class="small-filter mr-2 md:hidden"
-              @click="showFilter = !showFilter"
-            >
+            <div class="small-filter mr-2 md:hidden" @click="toggleSort">
               <img
                 src="/images/icons/filter.png"
                 class="w-10 xs:w-12"
@@ -59,20 +56,48 @@
 
           <transition name="fade">
             <div
-              v-if="showFilter"
-              class="filter-menu rounded-sm shadow-md absolute bg-white text-black p-2"
+              v-if="showSort"
+              class="filter-menu rounded-sm shadow-md absolute bg-white text-black p-2 w-96 sm:w5/12"
             >
               <div class="font-bold mb-2">Classer Safira par:</div>
-              <div class="" @click="sortBy = 'most_recent'">
+              <div
+                class="pl-2"
+                :class="{
+                  'bg-blue-800 text-white transition-all':
+                    sortBy === 'most_recent',
+                }"
+                @click="sortBy = 'most_recent'"
+              >
                 Plus recents en premier
               </div>
-              <div class="" @click="sortBy = 'least_recent'">
+              <div
+                class="pl-2"
+                :class="{
+                  'bg-blue-800 text-white transition-all':
+                    sortBy === 'least_recent',
+                }"
+                @click="sortBy = 'least_recent'"
+              >
                 Plus recents en dernier
               </div>
-              <div class="" @click="sortBy = 'most_popular'">
+              <div
+                class="pl-2"
+                :class="{
+                  'bg-blue-800 text-white transition-all':
+                    sortBy === 'most_popular',
+                }"
+                @click="sortBy = 'most_popular'"
+              >
                 Plus populaires en premier
               </div>
-              <div class="" @click="sortBy = 'most_viewed'">
+              <div
+                class="pl-2"
+                :class="{
+                  'bg-blue-800 text-white transition-all':
+                    sortBy === 'most_viewed',
+                }"
+                @click="sortBy = 'most_viewed'"
+              >
                 Plus vus en premier
               </div>
             </div>
@@ -81,7 +106,7 @@
           <div
             style="width: max-content"
             class="block md:hidden menu-icon text-3xl cursor-pointer"
-            @click="showMenu = !showMenu"
+            @click.stop="showMenu = !showMenu"
           >
             <img
               src="/images/icons/menu.png"
@@ -117,7 +142,7 @@ export default {
       searchKey: '',
       sortBy: 'most_recent',
       showMenu: false,
-      showFilter: false,
+      showSort: false,
       showSearchBar: false,
     };
   },
@@ -129,6 +154,17 @@ export default {
 
     sortBy(newVal) {
       this.$store.dispatch('modules/sortModules', newVal);
+    },
+  },
+  mounted() {
+    document.addEventListener('click', (e) => {
+      this.showSort = false;
+    });
+  },
+  methods: {
+    toggleSort(e) {
+      e.stopPropagation();
+      this.showSort = !this.showSort;
     },
   },
 };
@@ -189,8 +225,7 @@ export default {
 
 .filter-menu {
   top: 100%;
-  right: 15%;
-  width: 50%;
+  right: 5px;
   z-index: 50;
 }
 </style>
