@@ -56,7 +56,18 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/auth',
+    '@glarus-labs/nuxt-social-logins',
   ],
+
+  socialLogins: {
+    google: {
+      clientId:
+        '234103787265-402t42klm5612vk6kinnqdprgno94tbr.apps.googleusercontent.com',
+    },
+    facebook: {
+      appId: `367475804962155`,
+    },
+  },
 
   auth: {
     strategies: {

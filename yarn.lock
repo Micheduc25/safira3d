@@ -1234,6 +1234,11 @@
     postcss "7.0.32"
     purgecss "^2.3.0"
 
+"@glarus-labs/nuxt-social-logins@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@glarus-labs/nuxt-social-logins/-/nuxt-social-logins-1.1.2.tgz#5484194fd9cc494b6abd68603fc6fc8bc1d92944"
+  integrity sha512-hFqvPIAq8qlZzU2wI/rE/QU0KyCZLqe5/OUjmXzt0dUmnvliIb0s/jmf3+W3vZP4OwYhDjc2OD4qoJ9hz6th3w==
+
 "@hapi/hoek@^9.0.0":
   version "9.1.0"
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-9.1.0.tgz#6c9eafc78c1529248f8f4d92b0799a712b6052c6"
