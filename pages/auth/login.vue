@@ -119,6 +119,17 @@ export default {
       this.email = this.$route.query.email;
     }
   },
+  async mounted() {
+    const loading = this.$vs.loading();
+    try {
+      const res = await this.$fbAuth.init();
+      const res2 = await this.$googleAuth.init();
+      console.log('init response', res, res2);
+    } catch (err) {
+      console.log(err);
+    }
+    loading.close();
+  },
   methods: {
     async login(strategy) {
       if (this.email.length > 0 && this.password.length > 0) {
@@ -162,8 +173,24 @@ export default {
     },
 
     async altLogin(strategy) {
-      const res = await this.$auth.loginWith(strategy);
-      console.log('after login google ====>', res);
+      const loading = this.$vs.loading();
+      if (strategy === 'google') {
+        try {
+          const res = await this.$googleAuth.signIn();
+          console.log(res);
+        } catch (error) {
+          console.log(error);
+        }
+      } else if (strategy === 'facebook') {
+        try {
+          const res = await this.$fbAuth.signIn();
+          // const res = await this.$auth.loginWith('google');
+          console.log(res);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      loading.close();
     },
   },
 };
