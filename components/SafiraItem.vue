@@ -52,16 +52,16 @@
         <div v-if="visit_url" class="action-buttons">
           <nuxt-link
             class="explorer"
-            :to="'/modules/' + _id"
-            @click.prevent="checkAuth"
+            :to="'/modules/' + title.toLowerCase().replaceAll(' ', '-')"
           >
-            Explorer! <img src="/images/icons/stickman.png" class="person" />
+            Explorer!
+            <img src="/images/icons/stickman.png" class="person" />
           </nuxt-link>
 
-          <button class="download">
+          <!-- <button class="download">
             Télécharger
             <img src="/images/icons/download.png" class="download" />
-          </button>
+          </button> -->
         </div>
         <div v-else class="italics text-xl">
           En cours de réalisation et prochainement disponible sur Safira3D.net !
@@ -173,12 +173,6 @@ export default {
         }
       }
     },
-
-    // checkAuth() {
-    //   if (!this.$auth.isLoggedIn) {
-    //     this.$vs
-    //   }
-    // }
   },
 };
 </script>
@@ -255,7 +249,7 @@ export default {
             border-right: 2px solid white;
           }
 
-          &:not(:last-child) {
+          &:nth-child(1) {
             margin-right: 20px;
             padding: 5px 30px;
             img {

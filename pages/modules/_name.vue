@@ -1,6 +1,6 @@
 <template>
   <section class="page-content module-container">
-    <section v-if="selected_module" class="module-screen">
+    <section v-if="selected_module" class="module-screen pb-10">
       <vs-dialog v-model="showDeletePopUp">
         <template #header>
           <h2 class="text-4xl font-bold">Suprimer Module</h2>
@@ -98,12 +98,12 @@
         </a>
       </div>
 
-      <div class="px-6 module_creator">
+      <!-- <div class="px-6 module_creator">
         <span>Ajouté par: </span
         ><span class="font-bold text-4xl">{{
           selected_module.creator ? selected_module.creator.name : 'Admin'
         }}</span>
-      </div>
+      </div> -->
     </section>
   </section>
 </template>
@@ -144,7 +144,10 @@ export default {
     try {
       //  we fetch the selected module
 
-      await this.$store.dispatch('modules/fetchModule', this.$route.params.id);
+      await this.$store.dispatch(
+        'modules/fetchModule',
+        this.$route.params.name
+      );
       this.rating = this.selected_module.rating;
 
       //  if the user has not yet viewed the module we make him view!

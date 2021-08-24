@@ -1,7 +1,13 @@
 <template>
   <div
-    class="page-content home-or-loader flex flex-col items-center justify-center"
+    class="page-content home-or-loader flex flex-col items-center justify-center relative"
   >
+    <transition name="fade">
+      <construction-popup
+        v-if="showHomePopup"
+        @closePopup="$store.dispatch('views/setShowPopup', false)"
+      />
+    </transition>
     <loader v-show="showLoader" />
     <div
       v-show="!showLoader"
@@ -71,6 +77,21 @@
           </template>
         </safira-item>
       </transition-group>
+
+      <!-- If no module is available we display some messages-->
+      <div
+        v-if="modules.length === 0"
+        class="text-gray-600 text-4xl font-bold text-center mt-6"
+      >
+        Aucun module n'est diponible pour le moment
+      </div>
+      <div
+        v-else-if="filtered_modules.length === 0"
+        class="text-gray-600 text-4xl font-bold text-center mt-6"
+      >
+        Aucun résultat trouvé
+      </div>
+
       <div class="more">
         <p class="w-7/12 mx-auto text-center text-3xl">
           Notre plateforme web de réalité virtuelle évolue tous les jours.
@@ -127,11 +148,14 @@ import { mapGetters } from 'vuex';
 
 import SafiraItem from '~/components/SafiraItem';
 import loader from '~/components/loader';
+import ConstructionPopup from '~/components/ConstructionPopup.vue';
 export default {
+  name: 'HomePage',
   layout: 'baseLayout',
   components: {
     SafiraItem,
     loader,
+    ConstructionPopup,
   },
   data() {
     return {
@@ -143,6 +167,7 @@ export default {
   },
   computed: {
     ...mapGetters('modules', ['modules', 'filtered_modules']),
+    ...mapGetters('views', ['showHomePopup']),
     currentPageItems() {
       return this.filtered_modules.slice(
         (this.page - 1) * this.step,
@@ -171,6 +196,14 @@ export default {
       });
     } finally {
       this.showLoader = false;
+    }
+  },
+
+  mounted() {
+    const isFirstLoad = localStorage.getItem('isFirstLoad');
+    if (isFirstLoad === null) {
+      this.$store.dispatch('views/setShowPopup', true);
+      localStorage.setItem('isFirstLoad', 'false');
     }
   },
 };

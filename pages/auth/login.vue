@@ -4,13 +4,15 @@
   >
     <div class="home-content flex flex-col items-end">
       <div class="content-upper w-full flex md:flex-col flex-col-reverse">
-        <div class="text-main text-3xl w-full mb-2 mt-4 text-center font-bold">
-          Connectez Vous !
-        </div>
         <form
           autocomplete="on"
           class="login w-full flex items-center flex-col mb-20"
         >
+          <div
+            class="text-main text-3xl w-full mb-2 mt-4 text-center font-bold"
+          >
+            Connectez Vous !
+          </div>
           <input
             id="email"
             v-model="email"
@@ -65,8 +67,8 @@
       <!-----------------------------login methods ----------------------------------------->
 
       <div class="create-account sm:w-9/12 md:w-7/12 mx-auto">
-        <div class="text-main text-4xl font-bold text-center w-full">
-          Créez un nouveau compte
+        <div class="text-main text-3xl font-bold text-center w-full">
+          Connectez vous avec un autre compte
         </div>
 
         <div class="connection-methods flex flex-col items-stretch">

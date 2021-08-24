@@ -173,6 +173,10 @@ export const actions = {
         });
     });
   },
+
+  setCurrentModule({ commit }, module) {
+    commit('SET_SELECTED_MODULE', module);
+  },
   async createModule({ commit }, data) {
     const formData = new FormData();
 
