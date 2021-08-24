@@ -4,7 +4,9 @@
       class="popup-wrapper rounded shadow-lg p-5 w-11/12 sm:w-7/12 lg:w-5/12 flex flex-col items-center"
     >
       <img src="/images/home/safira.png" alt="safira logo" />
-      <h1 class="text-white text-6xl">Platform en Construction</h1>
+      <h1 class="text-white text-6xl text-center leading-tight">
+        Platform en Construction
+      </h1>
       <p class="text-white text-3xl mb-5">
         Notre plateforme Web Safira3D est encore en chantier. Vous pouvez déjà
         vous y promener et la voir, mais certaines choses ne sont pas encore en
