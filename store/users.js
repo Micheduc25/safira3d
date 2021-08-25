@@ -68,7 +68,10 @@ export const actions = {
           this.$auth.setUserToken(res.data.token);
           resolve(res.data);
         })
-        .catch((err) => reject(err.response.data));
+        .catch((err) => {
+          console.log(Object.keys(err), Object.keys(err.response));
+          reject(err.response);
+        });
     });
   },
   socialSignup({ commit }, userData) {
@@ -78,7 +81,7 @@ export const actions = {
         .then((res) => {
           resolve(res.data);
         })
-        .catch((err) => reject(err.response.data));
+        .catch((err) => reject(err.response));
     });
   },
 };
