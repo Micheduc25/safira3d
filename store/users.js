@@ -69,7 +69,7 @@ export const actions = {
           resolve(res.data);
         })
         .catch((err) => {
-          console.log(Object.keys(err), Object.keys(err.response));
+          // console.log(Object.keys(err), Object.keys(err.response));
           reject(err.response);
         });
     });

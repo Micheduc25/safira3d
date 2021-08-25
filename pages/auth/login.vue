@@ -174,33 +174,44 @@ export default {
 
     async altLogin(strategy) {
       const loading = this.$vs.loading();
-      if (strategy === 'google') {
-        try {
-          const res = await this.$googleAuth.signIn();
-
-          await this.$store.dispatch('users/socialLogin', res.userData);
-          this.$router.replace('/');
-        } catch (error) {
-          this.$vs.notification({
-            text: 'Une erreure est survenue lors de la connexion',
-            color: 'danger',
-            duration: 4000,
-          });
-          console.log(error);
+      let res;
+      try {
+        if (strategy === 'google') {
+          res = await this.$googleAuth.signIn();
+        } else {
+          res = await this.$fbAuth.signIn();
         }
-      } else if (strategy === 'facebook') {
-        try {
-          const res = await this.$fbAuth.signIn();
-          await this.$store.dispatch('users/socialLogin', res.userData);
-          this.$router.replace('/');
-        } catch (error) {
+
+        await this.$store.dispatch('users/socialLogin', res.userData);
+        if (this.$route.query.nextlink) {
+          this.$router.replace(this.$route.query.nextlink);
+        } else this.$router.replace('/');
+      } catch (error) {
+        // if the user was not found we attempt to create the user and him login
+        if (error.status === 404) {
+          try {
+            await this.$store.dispatch('users/socialSingup', res.userData);
+            await this.$store.dispatch('users/socialLogin', res.userData);
+
+            if (this.$route.query.nextlink) {
+              this.$router.replace(this.$route.query.nextlink);
+            } else this.$router.replace('/');
+          } catch (err) {
+            this.$vs.notification({
+              text: `${err.data}`,
+              color: 'danger',
+              duration: 4000,
+            });
+          }
+        } else {
           this.$vs.notification({
-            text: 'Une erreure est survenue lors de la connexion',
+            text: `Une erreur est survenue lors de la connexion`,
             color: 'danger',
             duration: 4000,
           });
         }
       }
+
       loading.close();
     },
   },
