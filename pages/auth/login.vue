@@ -189,7 +189,7 @@ export default {
       } catch (error) {
         // if the user was not found we attempt to create the user and him login
         console.log(error.status, Object.keys(error));
-        if (error.status === 404) {
+        if (error.status.toString() === `404`) {
           try {
             await this.$store.dispatch('users/socialSignup', res.userData);
             await this.$store.dispatch('users/socialLogin', res.userData);
