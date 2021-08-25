@@ -191,7 +191,7 @@ export default {
         console.log(error.status, Object.keys(error));
         if (error.status === 404) {
           try {
-            await this.$store.dispatch('users/socialSingup', res.userData);
+            await this.$store.dispatch('users/socialSignup', res.userData);
             await this.$store.dispatch('users/socialLogin', res.userData);
 
             if (this.$route.query.nextlink) {

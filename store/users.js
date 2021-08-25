@@ -79,6 +79,7 @@ export const actions = {
       this.$axios
         .post('/api/auth/social-signup', userData)
         .then((res) => {
+          console.log('after social signup, ', res.data);
           resolve(res.data);
         })
         .catch((err) => reject(err.response));
