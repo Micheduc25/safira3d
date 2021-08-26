@@ -69,7 +69,6 @@ export const actions = {
           resolve(res.data);
         })
         .catch((err) => {
-          // console.log(Object.keys(err), Object.keys(err.response));
           reject(err.response);
         });
     });
@@ -79,7 +78,6 @@ export const actions = {
       this.$axios
         .post('/api/auth/social-signup', userData)
         .then((res) => {
-          console.log('after social signup, ', res.data);
           resolve(res.data);
         })
         .catch((err) => reject(err.response));

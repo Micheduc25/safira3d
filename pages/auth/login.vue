@@ -122,9 +122,11 @@ export default {
   async mounted() {
     const loading = this.$vs.loading();
     try {
+      // eslint-disable-next-line no-unused-vars
       const res = await this.$fbAuth.init();
+      // eslint-disable-next-line no-unused-vars
       const res2 = await this.$googleAuth.init();
-      console.log('init response', res, res2);
+      // console.log('init response', res, res2);
     } catch (err) {
       console.log(err);
     }
@@ -188,7 +190,6 @@ export default {
         } else this.$router.replace('/');
       } catch (error) {
         // if the user was not found we attempt to create the user and him login
-        console.log(error.status, Object.keys(error));
         if (error.status.toString() === `404`) {
           try {
             await this.$store.dispatch('users/socialSignup', res.userData);
