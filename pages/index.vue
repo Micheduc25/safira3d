@@ -33,7 +33,7 @@
             <img src="/images/home/safira.png" alt="safira" />
             <p class="mt-4 text-4xl">
               Bienvenue sur
-              <span class="font-bold text-4xl">Safira3D.com</span>, la première
+              <span class="font-bold text-4xl">Safira3D.net</span>, la première
               plateforme web de réalité virtuelle consacrée aux plus grands
               lieux du patrimoine culturel, historique et naturel du Cameroun et
               de l’Afrique !
