@@ -5,7 +5,7 @@
     >
       <img src="/images/home/safira.png" alt="safira logo" />
       <h1 class="text-white text-6xl text-center leading-tight">
-        Platforme en construction
+        Plateforme en construction
       </h1>
       <p class="text-white text-3xl mb-5">
         Notre plateforme web Safira3D est encore en chantier. Vous pouvez déjà

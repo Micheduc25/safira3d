@@ -190,7 +190,7 @@ export default {
         } else this.$router.replace('/');
       } catch (error) {
         // if the user was not found we attempt to create the user and him login
-        if (error.status.toString() === `404`) {
+        if (error.status && error.status.toString() === `404`) {
           try {
             await this.$store.dispatch('users/socialSignup', res.userData);
             await this.$store.dispatch('users/socialLogin', res.userData);

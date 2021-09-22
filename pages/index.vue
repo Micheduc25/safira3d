@@ -125,7 +125,7 @@
             scolaire ou universitaire, bureau… ou de tout autres lieux que vous
             voudriez faire découvrir au Monde? Vous voudriez attirer plus de
             visiteurs ou de clients vers votre activité? Alors remplissez le
-            formulaire maintenant !
+            formulaire maintenant!
           </div>
 
           <div class="formulaire flex justify-center mt-4">
